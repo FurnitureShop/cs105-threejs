@@ -1,7 +1,4 @@
 import './style.css'
+import Experience from "./Experience/Experience"
 
-const app = document.querySelector<HTMLDivElement>('#app')
-app!.innerHTML = `
-  <div>
-  </div>
-`
+const experience = new Experience(document.querySelector(".experience-canvas"))
