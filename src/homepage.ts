@@ -1,41 +1,60 @@
 import * as THREE from "three";
+import * as TWEEN from "@tweenjs/tween.js";
 
 export default function HomePage(scene: THREE.Scene, camera: THREE.Camera) {
-	const geomestry = new THREE.BoxGeometry(1, 1, 1);
-	const material = [
-		new THREE.MeshBasicMaterial({ color: '#ee0000', }),
-		new THREE.MeshBasicMaterial({ color: '#00ee00' }),
-		new THREE.MeshBasicMaterial({ color: '#0000ee' }),
-		new THREE.MeshBasicMaterial({ color: '#e00ee0' }),
-		new THREE.MeshBasicMaterial({ color: '#115533' }),
-		new THREE.MeshBasicMaterial({ color: '#779900' })
-	]
-	const cube = new THREE.Mesh(geomestry, material);
-	scene.add(cube);
+	const geometry = new THREE.BoxGeometry();
+const material = [
+	new THREE.MeshBasicMaterial({ color: "#ee0000" }),
+	new THREE.MeshBasicMaterial({ color: "#00ee00" }),
+	new THREE.MeshBasicMaterial({ color: "#0000ee" }),
+	new THREE.MeshBasicMaterial({ color: "#e00ee0" }),
+	new THREE.MeshBasicMaterial({ color: "#115533" }),
+	new THREE.MeshBasicMaterial({ color: "#779900" }),
+];
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
 
-	const raycaster = new THREE.Raycaster();
-	const mouse = new THREE.Vector2();
+camera.position.z = 5;
 
-	function onDocumentMouseMove(event: MouseEvent) {
-		event.preventDefault();
+// Detect swipe event
+let swipeStartX: number;
+let swipeEndX: number;
+document.addEventListener("mousedown", (event) => {
+	swipeStartX = event.clientX;
+});
 
-		mouse.x = (event.clientX / window.innerWidth) * 2 - 1;		
-		mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+document.addEventListener("mousemove",() => {})
+
+document.addEventListener("mouseup", (event) => {
+	swipeEndX = event.clientX;
+	const swipeDistance = swipeEndX - swipeStartX;
+	const screenWidth = window.innerWidth;
+	const rotationDistance = Math.PI / 2; // 90 degrees in radians
+
+	// Calculate remaining distance
+	const remainingDistance = screenWidth - Math.abs(swipeDistance);
+
+	// Determine rotation direction
+	let rotationDirection: number;
+	if (remainingDistance > rotationDistance) {
+		rotationDirection = Math.sign(swipeDistance);
+	} else {
+		rotationDirection = -Math.sign(swipeDistance);
 	}
 
-	function onDocumentMouseDown(event: MouseEvent) {
-		event.preventDefault();
+	// Rotate block with animation
+	const targetRotation = cube.rotation.y + rotationDirection * rotationDistance;
 
-		raycaster.setFromCamera(mouse, camera);
-		const intersects = raycaster.intersectObjects(scene.children);
-
-		if(intersects.length>0) {
-			const distanceSwiped = 0;
-			const rotationAmount = 10;
-			cube.rotation.y += rotationAmount;
-		}
-	}
-
-	document.addEventListener('mousemove', onDocumentMouseMove, false);
-	document.addEventListener('mousedown', onDocumentMouseDown, false);
+	const animate = () => {
+		new TWEEN.Tween(cube.rotation)
+			.to({ y: cube.rotation.y + (rotationDirection *  Math.PI / 2) }, 1000)
+			.easing(TWEEN.Easing.Quadratic.InOut)
+			.start();
+		// if (Math.abs(cube.rotation.y - targetRotation) > 0.01) {
+		//   cube.rotation.y += (targetRotation - cube.rotation.y) * 0.1;
+		//   requestAnimationFrame(animate);
+		// }
+	};
+	animate();
+});
 }
