@@ -9,10 +9,12 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/three": "^0.152.0",
     "typescript": "^5.0.2",
     "vite": "^4.3.0"
   },
   "dependencies": {
+    "@tweenjs/tween.js": "^20.0.3",
     "three": "^0.151.3"
   }
 }
