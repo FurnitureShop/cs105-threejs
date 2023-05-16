@@ -40,6 +40,9 @@ let swipeEndX: number;
 document.addEventListener("mousedown", (event) => {
 	swipeStartX = event.clientX;
 });
+
+document.addEventListener("mousemove",() => {})
+
 document.addEventListener("mouseup", (event) => {
 	swipeEndX = event.clientX;
 	const swipeDistance = swipeEndX - swipeStartX;
@@ -50,7 +53,7 @@ document.addEventListener("mouseup", (event) => {
 	const remainingDistance = screenWidth - Math.abs(swipeDistance);
 
 	// Determine rotation direction
-	let rotationDirection;
+	let rotationDirection: number;
 	if (remainingDistance > rotationDistance) {
 		rotationDirection = Math.sign(swipeDistance);
 	} else {
@@ -62,7 +65,7 @@ document.addEventListener("mouseup", (event) => {
 
 	const animate = () => {
 		new TWEEN.Tween(cube.rotation)
-			.to({ y: Math.PI / 2 }, 2000)
+			.to({ y: cube.rotation.y + (rotationDirection *  Math.PI / 2) }, 1000)
 			.easing(TWEEN.Easing.Quadratic.InOut)
 			.start();
 		// if (Math.abs(cube.rotation.y - targetRotation) > 0.01) {
