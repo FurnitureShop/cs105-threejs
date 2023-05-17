@@ -4,15 +4,21 @@ import Experience from "../Experience";
 export default class Room {
     experience: Experience;
     scene: THREE.Scene;
+    resources: any;
+    room: any;
 
     constructor() {
         this.experience = new Experience();
         this.scene = this.experience.scene;
+        this.resources = this.experience.resources;
 
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        const cube = new THREE.Mesh(geometry, material);
-        this.scene.add(cube);
+        this.room = this.resources.items["room_01"].scene
+        // console.log(this.room)
+        this.setModel();
+    }
+
+    setModel() {
+        this.scene.add(this.room)
     }
 
     resize() {
