@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import * as TWEEN from "@tweenjs/tween.js";
 
 export default function HomePage(scene: THREE.Scene, camera: THREE.Camera) {
 	// Create a 3D block
