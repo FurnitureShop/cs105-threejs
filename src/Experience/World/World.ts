@@ -2,6 +2,8 @@ import * as THREE from "three";
 import Experience from "../Experience";
 import Room from "./Room";
 import Environment from "./Environment";
+import assets from "../Utils/assets";
+import Controls from "./Controls";
 
 export default class World {
     experience: Experience;
@@ -10,8 +12,9 @@ export default class World {
     scene: THREE.Scene;
     canvas: any;
     camera: any;
-    resources: import("d:/git/cs105-threejs/src/Experience/Utils/Resources").default;
+    resources: any;
     environment!: Environment;
+    controls!: Controls;
 
     constructor() {
         this.experience = new Experience();
@@ -23,7 +26,8 @@ export default class World {
 
         this.resources.on("ready", () => {
             this.environment = new Environment()
-            this.room = new Room();
+            this.room = new Room(assets[0].name);
+            this.controls = new Controls();
             // console.log("room created")
         })
     }
@@ -33,6 +37,11 @@ export default class World {
     }
 
     update() {
-
+        if (this.room) {
+            this.room.update()
+        }
+        if (this.controls) {
+            this.controls.update()
+        }
     }
 }
