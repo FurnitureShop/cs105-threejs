@@ -13,6 +13,8 @@ export default class Camera {
    orthographicCamera!: THREE.OrthographicCamera;
    controls: any;
 
+   helper!: THREE.CameraHelper;
+
    constructor() {
       this.experience = new Experience();
       this.sizes = this.experience.sizes;
@@ -49,6 +51,9 @@ export default class Camera {
       )
       this.scene.add(this.orthographicCamera)
 
+      // this.helper = new THREE.CameraHelper(this.orthographicCamera);
+      // this.scene.add(this.helper);
+
       const gridHelper = new THREE.GridHelper(20, 20);
       this.scene.add(gridHelper);
 
@@ -76,6 +81,12 @@ export default class Camera {
    }
 
    update() {
+      // console.log(this.perspectiveCamera.position);
+      this.controls.update();
 
+      // this.helper.matrixWorldNeedsUpdate = true;
+      // this.helper.update();
+      // this.helper.position.copy(this.orthographicCamera.position);
+      // this.helper.rotation.copy(this.orthographicCamera.rotation);
    }
 }

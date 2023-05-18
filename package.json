@@ -12,6 +12,7 @@
     "@types/events": "^3.0.0",
     "@types/three": "^0.152.0",
     "events": "^3.3.0",
+    "gsap": "^3.11.5",
     "three": "^0.152.2",
     "typescript": "^5.0.2",
     "vite": "^4.3.0"

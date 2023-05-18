@@ -6,7 +6,7 @@ export default class Controls {
     scene: THREE.Scene;
     resources: any;
     time: any;
-    curve!: THREE.CatmullRomCurve3;
+    // curve!: THREE.CatmullRomCurve3;
 
     constructor() {
         this.experience = new Experience();
@@ -14,28 +14,28 @@ export default class Controls {
         this.resources = this.experience.resources;
         this.time = this.experience.time;
 
-        this.setPath();
+        // this.setPath();
     }
 
-    setPath() {
-        //Create a closed wavey loop
-        this.curve = new THREE.CatmullRomCurve3([
-            new THREE.Vector3(-10, 0, 10),
-            new THREE.Vector3(-5, 5, 5),
-            new THREE.Vector3(0, 0, 0),
-            new THREE.Vector3(5, -5, 5),
-            new THREE.Vector3(10, 0, 10)
-        ]);
+    // setPath() {
+    //     //Create a closed wavey loop
+    //     this.curve = new THREE.CatmullRomCurve3([
+    //         new THREE.Vector3(-10, 0, 10),
+    //         new THREE.Vector3(-5, 5, 5),
+    //         new THREE.Vector3(0, 0, 0),
+    //         new THREE.Vector3(5, -5, 5),
+    //         new THREE.Vector3(10, 0, 10)
+    //     ]);
 
-        const points = this.curve.getPoints(50);
-        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+    //     const points = this.curve.getPoints(50);
+    //     const geometry = new THREE.BufferGeometry().setFromPoints(points);
 
-        const material = new THREE.LineBasicMaterial({ color: 0xff0000 });
+    //     const material = new THREE.LineBasicMaterial({ color: 0xff0000 });
 
-        // Create the final object to add to the scene
-        const curveObject = new THREE.Line(geometry, material);
-        this.scene.add(curveObject)
-    }
+    //     // Create the final object to add to the scene
+    //     const curveObject = new THREE.Line(geometry, material);
+    //     this.scene.add(curveObject)
+    // }
 
     resize() { }
 
