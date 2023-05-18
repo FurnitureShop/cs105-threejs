@@ -61,7 +61,7 @@ export default class Room {
       })
 
       this.scene.add(this.room)
-      this.room.scale.set(0.2, 0.2, 0.2)
+      this.room.scale.set(0.15, 0.15, 0.15)
       // this.room.rotation.y = Math.PI
    }
 
@@ -70,7 +70,7 @@ export default class Room {
          console.log(event)
          const width = window.innerWidth
          this.rotation = ((event.clientX - width / 2) * 2) / width;
-         this.lerp.target = this.rotation
+         this.lerp.target = this.rotation*0.2
       })
    }
 

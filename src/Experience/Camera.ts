@@ -33,26 +33,29 @@ export default class Camera {
          0.1,
          1000
       )
-      this.scene.add(this.perspectiveCamera)
       this.perspectiveCamera.position.x = 29
       this.perspectiveCamera.position.y = 14
       this.perspectiveCamera.position.z = 12
+      this.scene.add(this.perspectiveCamera)
    }
 
    createOrthographicCamera() {
-      this.sizes.frostrum = 5
       this.orthographicCamera = new THREE.OrthographicCamera(
-         (-this.sizes.aspect * this.sizes.frostrum) / 2,
-         (this.sizes.aspect * this.sizes.frostrum) / 2,
-         this.sizes.frostrum / 2,
-         -this.sizes.frostrum / 2,
-         -100,
-         100
+         (-this.sizes.aspect * this.sizes.frostum) / 2,
+         (this.sizes.aspect * this.sizes.frostum) / 2,
+         this.sizes.frostum / 2,
+         -this.sizes.frostum / 2,
+         -10,
+         10
       )
+      // this.orthographicCamera.position.x
+      this.orthographicCamera.position.y = 4
+      this.orthographicCamera.position.z = 5
+      this.orthographicCamera.rotation.x = -Math.PI / 6;
       this.scene.add(this.orthographicCamera)
 
-      // this.helper = new THREE.CameraHelper(this.orthographicCamera);
-      // this.scene.add(this.helper);
+      this.helper = new THREE.CameraHelper(this.orthographicCamera);
+      this.scene.add(this.helper);
 
       const gridHelper = new THREE.GridHelper(20, 20);
       this.scene.add(gridHelper);
@@ -73,10 +76,10 @@ export default class Camera {
       this.perspectiveCamera.updateProjectionMatrix();
 
       //Update Orthographic Camera on resize
-      this.orthographicCamera.left = (-this.sizes.aspect * this.sizes.frostrum) / 2
-      this.orthographicCamera.right = (this.sizes.aspect * this.sizes.frostrum) / 2
-      this.orthographicCamera.top = this.sizes.frostrum / 2
-      this.orthographicCamera.bottom = -this.sizes.frostrum / 2
+      this.orthographicCamera.left = (-this.sizes.aspect * this.sizes.frostum) / 2
+      this.orthographicCamera.right = (this.sizes.aspect * this.sizes.frostum) / 2
+      this.orthographicCamera.top = this.sizes.frostum / 2
+      this.orthographicCamera.bottom = -this.sizes.frostum / 2
       this.orthographicCamera.updateProjectionMatrix()
    }
 
@@ -84,9 +87,9 @@ export default class Camera {
       // console.log(this.perspectiveCamera.position);
       this.controls.update();
 
-      // this.helper.matrixWorldNeedsUpdate = true;
-      // this.helper.update();
-      // this.helper.position.copy(this.orthographicCamera.position);
-      // this.helper.rotation.copy(this.orthographicCamera.rotation);
+      this.helper.matrixWorldNeedsUpdate = true;
+      this.helper.update();
+      this.helper.position.copy(this.orthographicCamera.position);
+      this.helper.rotation.copy(this.orthographicCamera.rotation);
    }
 }
