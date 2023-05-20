@@ -33,7 +33,7 @@ export default class Room {
 
    setModel() {
       this.room.children.forEach((child: THREE.Object3D) => {
-         console.log(child)
+         // console.log(child)
          child.castShadow = true;
          child.receiveShadow = true;
 
@@ -67,10 +67,10 @@ export default class Room {
 
    onMouseMove() {
       window.addEventListener("mousemove", (event) => {
-         console.log(event)
+         // console.log(event)
          const width = window.innerWidth
          this.rotation = ((event.clientX - width / 2) * 2) / width;
-         this.lerp.target = this.rotation*0.2
+         this.lerp.target = this.rotation * 0.15
       })
    }
 

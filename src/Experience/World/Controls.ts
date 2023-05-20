@@ -1,45 +1,47 @@
 import * as THREE from "three";
 import Experience from "../Experience";
+import { ScrollTrigger } from "gsap/ScrollTrigger"
+import GSAP from "gsap";
 
 export default class Controls {
-    experience: Experience;
-    scene: THREE.Scene;
-    resources: any;
-    time: any;
-    // curve!: THREE.CatmullRomCurve3;
+   experience: Experience;
+   scene: THREE.Scene;
+   resources: any;
+   time: any;
+   timeline!: gsap.core.Timeline;
+   room: any;
 
-    constructor() {
-        this.experience = new Experience();
-        this.scene = this.experience.scene;
-        this.resources = this.experience.resources;
-        this.time = this.experience.time;
+   constructor() {
+      this.experience = new Experience();
+      this.scene = this.experience.scene;
+      this.resources = this.experience.resources;
+      this.time = this.experience.time;
+      this.room = this.experience.world.room.room;
 
-        // this.setPath();
-    }
+      GSAP.registerPlugin(ScrollTrigger)
+      this.setPath();
+   }
 
-    // setPath() {
-    //     //Create a closed wavey loop
-    //     this.curve = new THREE.CatmullRomCurve3([
-    //         new THREE.Vector3(-10, 0, 10),
-    //         new THREE.Vector3(-5, 5, 5),
-    //         new THREE.Vector3(0, 0, 0),
-    //         new THREE.Vector3(5, -5, 5),
-    //         new THREE.Vector3(10, 0, 10)
-    //     ]);
+   setPath() {
+      // console.log(this.room)
+      // let firstSectionMargin = document.querySelector("div[first-section-margin]")
+      // console.log(firstSectionMargin)
+      this.timeline = new GSAP.timeline();
+      this.timeline.to(this.room.position, {
+         x: 0.8,
+         scrollTrigger: {
+            trigger: "div[first-section-margin]",
+            // markers: true,
+            // start: "top top",
+            // end: "bottom bottom",
+            scrub: 0.5
+         }
+      })
+   }
 
-    //     const points = this.curve.getPoints(50);
-    //     const geometry = new THREE.BufferGeometry().setFromPoints(points);
+   resize() { }
 
-    //     const material = new THREE.LineBasicMaterial({ color: 0xff0000 });
+   update() {
 
-    //     // Create the final object to add to the scene
-    //     const curveObject = new THREE.Line(geometry, material);
-    //     this.scene.add(curveObject)
-    // }
-
-    resize() { }
-
-    update() {
-
-    }
+   }
 }
