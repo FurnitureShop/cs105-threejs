@@ -32,6 +32,7 @@ export default class Room {
    }
 
    setModel() {
+      console.log(this.room)
       this.room.children.forEach((child: THREE.Object3D) => {
          // console.log(child)
          child.castShadow = true;

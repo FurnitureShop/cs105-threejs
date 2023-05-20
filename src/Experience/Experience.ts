@@ -7,6 +7,7 @@ import Time from "./Utils/Time";
 import World from "./World/World";
 import Resources from "./Utils/Resources";
 import assets from "./Utils/assets";
+import Theme from "./Utils/Theme";
 
 export default class Experience {
    static instance: any;
@@ -18,6 +19,7 @@ export default class Experience {
    time!: Time;
    world!: World;
    resources!: Resources;
+   theme!: Theme;
 
    constructor(canvas?: any) {
       if (Experience.instance) {
@@ -32,6 +34,7 @@ export default class Experience {
       this.camera = new Camera();
       this.renderer = new Renderer();
       this.resources = new Resources(assets)
+      this.theme = new Theme();
       this.world = new World();
 
       //listen on "resize" event from EventEmitter
@@ -42,6 +45,15 @@ export default class Experience {
       this.time.on("update", () => {
          this.update()
       })
+      this.theme.on("switch-theme", (theme) => {
+         this.switchTheme(theme)
+      })
+   }
+
+   switchTheme(theme: string) {
+      if (this.world.environment) {
+         this.world.environment.switchTheme(theme)
+      }
    }
 
    resize() {

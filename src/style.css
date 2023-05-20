@@ -12,6 +12,15 @@ body {
    /* color: var(--color-text-light); */
 }
 
+h1,
+section,
+p,
+span,
+svg {
+   transition: background-color 0.5s, color 0.5s;
+}
+
+
 /* Make some variables */
 :root {
    /* Light Theme Variables */
@@ -26,7 +35,7 @@ body {
    --color-background-dark: #8395CD;
 }
 
-.light-theme {
+.light {
    --color-text: var(--color-text-light);
    --color-background: var(--color-background-light);
    --color-pink: var(--color-pink-light);
@@ -34,7 +43,7 @@ body {
    --color-blue: var(--color-blue-light);
 }
 
-.dark-theme {
+.dark {
    --color-text: var(--color-text-dark);
    --color-background: var(--color-background-dark);
    --color-pink: var(--color-text-dark);
@@ -66,6 +75,61 @@ div.experience {
    position: relative;
 }
 
+/* Toggle button */
+.toggle-bar {
+   position: fixed;
+   display: flex;
+   /* opacity: 0; */
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   top: 48px;
+   right: 48px;
+   z-index: 9999;
+}
+
+.sun-wrapper,
+.moon-wrapper {
+   display: flex;
+   flex-direction: row;
+   justify-content: center;
+   align-items: center;
+   color: var(--color-text);
+}
+
+.toggle-button {
+   cursor: pointer;
+   position: relative;
+   width: 56px;
+   height: 28px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   background-color: var(--color-pink);
+   border-radius: 999px;
+   margin: 0px 16px;
+   border: none;
+   box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.toggle-circle {
+   position: absolute;
+   left: 6px;
+   border-radius: 50%;
+   width: 20px;
+   height: 20px;
+   background-color: var(--color-background);
+   transition: all 0.15s ease-in-out;
+}
+
+.toggle-button:hover .toggle-circle {
+   transform: scale(0.9);
+}
+
+.slide {
+   left: 31px;
+}
+
 /* Hero */
 .hero {
    width: 100vw;
@@ -84,26 +148,31 @@ div.experience {
    position: absolute;
    bottom: 170px;
    left: 0;
+   color: var(--color-text);
 }
 
 .hero-second {
    position: absolute;
    top: calc(50% - 120px);
    right: 0;
+   color: var(--color-text);
 }
 
 .hero-main-title {
    font-size: 64px;
+   color: var(--color-text);
 }
 
 .hero-main-description {
    font-size: 18px;
+   color: var(--color-text);
    /* line-height: 24px; */
 }
 
 .hero-second-subheading {
    font-size: 18px;
    text-transform: uppercase;
+   color: var(--color-text);
 }
 
 /* Section Format */
@@ -116,22 +185,28 @@ div.experience {
    width: 40%;
    padding: 1000px 4%;
    margin: 0;
-   border-radius: 20px;
-   background-color: var(--color-background-light);
+   /* border-radius: 20px; */
+   background-color: var(--color-background);
+   overflow: hidden;
 }
 
 .left {
    margin-right: auto;
+   border-top-right-radius: 30px;
+   border-bottom-right-radius: 30px;
+
 }
 
 .right {
    margin-left: auto;
+   border-top-left-radius: 30px;
+   border-bottom-left-radius: 30px;
 }
 
 .section-intro-wrapper {
    position: relative;
    padding: 20% 5%;
-   border-bottom: 2px solid var(--color-pink-light);
+   border-bottom: 2px solid var(--color-pink);
    padding-bottom: 50px;
 }
 
@@ -145,29 +220,32 @@ div.experience {
    font-weight: 700;
    line-height: 1.8;
    margin-top: 64px;
+   color: var(--color-text);
 }
 
 .section-text {
    line-height: 2;
    margin-top: 18px;
    font-size: 16px;
+   color: var(--color-text);
 }
 
 /* Decoration for section */
 .section-title {
    position: relative;
-   color: var(--color-text-light);
+   color: var(--color-text);
 }
 
 .section-title-text {
    font-size: 40px;
    font-weight: 500;
    text-transform: uppercase;
+   color: var(--color-text);
 }
 
 .section-number {
    position: absolute;
    bottom: 15px;
    right: 0;
-   color: var(--color-text-light);
+   color: var(--color-text);
 }
