@@ -10,6 +10,7 @@ export default class Controls {
    time: any;
    timeline!: gsap.core.Timeline;
    room: any;
+   sizes: any;
 
    constructor() {
       this.experience = new Experience();
@@ -17,6 +18,7 @@ export default class Controls {
       this.resources = this.experience.resources;
       this.time = this.experience.time;
       this.room = this.experience.world.room.room;
+      this.sizes = this.experience.sizes;
 
       GSAP.registerPlugin(ScrollTrigger)
       this.setPath();
@@ -28,13 +30,14 @@ export default class Controls {
       // console.log(firstSectionMargin)
       this.timeline = new GSAP.timeline();
       this.timeline.to(this.room.position, {
-         x: 0.8,
+         x: () => this.sizes.width * 0.0012,
          scrollTrigger: {
             trigger: "div[first-section-margin]",
             // markers: true,
             // start: "top top",
             // end: "bottom bottom",
-            scrub: 0.5
+            scrub: 0.5,
+            invalidateOnRefresh: true,
          }
       })
    }

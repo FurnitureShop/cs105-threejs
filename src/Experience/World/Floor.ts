@@ -25,6 +25,7 @@ export default class Floor {
       this.scene.add(this.plane)
       this.plane.rotation.x = Math.PI / 2
       this.plane.position.y = -0.3;
+      this.plane.receiveShadow = true
    }
 
    resize() { }
