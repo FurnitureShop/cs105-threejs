@@ -13,7 +13,7 @@ export default class Camera {
    orthographicCamera!: THREE.OrthographicCamera;
    controls: any;
 
-   helper!: THREE.CameraHelper;
+   // helper!: THREE.CameraHelper;
 
    constructor() {
       this.experience = new Experience();

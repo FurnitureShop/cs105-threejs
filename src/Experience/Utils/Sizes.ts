@@ -15,7 +15,8 @@ export default class Sizes extends EventEmitter {
         this.pixelRatio = Math.min(window.devicePixelRatio, 2)
         this.frostum = 5;
 
-        window.addEventListener("resize", () => {
+       window.addEventListener("resize", () => {
+         //   console.log(this)
             this.width = window.innerWidth;
             this.height = window.innerHeight;
             this.aspect = this.width / this.height;
