@@ -2,6 +2,7 @@ import * as THREE from "three";
 import * as TWEEN from "@tweenjs/tween.js";
 import "./style.css";
 import HomePage from "./homepage";
+import Experience from "./Experience/Experience"
 
 const app = document.querySelector<HTMLDivElement>("#app");
 app!.innerHTML = `
@@ -30,3 +31,6 @@ function animate() {
 console.log(document)
 
 animate();
+
+
+const experience = new Experience(document.querySelector(".experience-canvas"))
