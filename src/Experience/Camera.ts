@@ -25,7 +25,7 @@ export default class Camera {
       this.createOrthographicCamera();
       this.setOrbitControls();
    }
-
+   //
    createPerspectiveCamera() {
       this.perspectiveCamera = new THREE.PerspectiveCamera(
          35,
