@@ -9,6 +9,7 @@ export default class Room {
    room: any;
    lerp: any;
    rotation: any;
+   rectLight!: THREE.RectAreaLight;
    //for animations
    // mixer!: THREE.AnimationMixer;
    // swim!: THREE.AnimationAction;
@@ -73,16 +74,16 @@ export default class Room {
       const width = 1;
       const height = 1;
       const intensity = 3;
-      const rectLight = new THREE.RectAreaLight(
+      this.rectLight = new THREE.RectAreaLight(
          0xffffff,
          intensity,
          width,
          height
       );
-      rectLight.position.set(1, 5, -1);
-      rectLight.rotation.x = -Math.PI / 2;
-      rectLight.rotation.z = Math.PI / 4;
-      object.add(rectLight);
+      this.rectLight.position.set(1, 5, -1);
+      this.rectLight.rotation.x = -Math.PI / 2;
+      this.rectLight.rotation.z = Math.PI / 4;
+      object.add(this.rectLight);
    }
 
    onMouseMove() {
