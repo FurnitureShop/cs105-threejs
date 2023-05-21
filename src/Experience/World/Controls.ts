@@ -2,7 +2,7 @@ import * as THREE from "three";
 import Experience from "../Experience";
 import { ScrollTrigger } from "gsap/ScrollTrigger"
 import GSAP from "gsap";
-import ASScroll  from "@ashthornton/asscroll"
+import ASScroll from "@ashthornton/asscroll"
 
 export default class Controls {
    experience: Experience;
@@ -14,6 +14,10 @@ export default class Controls {
    sizes: any;
    rectLight: THREE.RectAreaLight;
    asscroll!: ASScroll;
+   circleFirst: THREE.Mesh<THREE.CircleGeometry, THREE.MeshStandardMaterial>;
+   circleSecond: THREE.Mesh<THREE.CircleGeometry, THREE.MeshStandardMaterial>;
+   circleThird: THREE.Mesh<THREE.CircleGeometry, THREE.MeshStandardMaterial>;
+
 
    constructor() {
       this.experience = new Experience();
@@ -23,6 +27,10 @@ export default class Controls {
       this.rectLight = this.experience.world.room.rectLight;
       this.room = this.experience.world.room.room;
       this.sizes = this.experience.sizes;
+
+      this.circleFirst = this.experience.world.floor.circleFirst;
+      this.circleSecond = this.experience.world.floor.circleSecond;
+      this.circleThird = this.experience.world.floor.circleThird;
 
       GSAP.registerPlugin(ScrollTrigger)
       this.setSmoothScroll()
@@ -45,6 +53,7 @@ export default class Controls {
       ScrollTrigger.scrollerProxy(asscroll.containerElement, {
          scrollTop(value) {
             if (arguments.length) {
+               //@ts-ignore
                asscroll.currentPos = value;
                return;
             }
@@ -239,7 +248,53 @@ export default class Controls {
                   }
                })
             })
+
+            //first circle animation
+            //@ts-ignore
+            const firstTimeline = new GSAP.timeline({
+               scrollTrigger: {
+                  trigger: ".first-section-margin",
+                  // markers: true,
+                  start: "top top",
+                  end: "bottom bottom",
+                  scrub: 0.5,
+                  invalidateOnRefresh: true,
+               }
+            }).to(this.circleFirst.scale, {
+               x: 3, y: 3, z: 3
+            })
+
+            //second section
+            //@ts-ignore
+            const secondTimeline = new GSAP.timeline({
+               scrollTrigger: {
+                  trigger: ".second-section-margin",
+                  // markers: true,
+                  start: "top top",
+                  end: "bottom bottom",
+                  scrub: 0.5,
+                  invalidateOnRefresh: true,
+               }
+            }).to(this.circleSecond.scale, {
+               x: 3, y: 3, z: 3
+            })
+
+            //third section
+            //@ts-ignore
+            const thirdTimeline = new GSAP.timeline({
+               scrollTrigger: {
+                  trigger: ".third-section-margin",
+                  // markers: true,
+                  start: "top top",
+                  end: "bottom bottom",
+                  scrub: 0.5,
+                  invalidateOnRefresh: true,
+               }
+            }).to(this.circleThird.scale, {
+               x: 3, y: 3, z: 3
+            })
          }
+
       })
    }
 
