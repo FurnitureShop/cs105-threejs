@@ -1,14 +1,13 @@
 import * as THREE from "three";
 import * as TWEEN from "@tweenjs/tween.js";
+import Page from "./Page/Page";
 import "./style.css";
-import HomePage from "./homepage";
-import Experience from "./Experience/Experience"
 
-const app = document.querySelector<HTMLDivElement>("#app");
-app!.innerHTML = `
-  <div>
-  </div>
-`;
+// const app = document.querySelector<HTMLDivElement>("#app");
+// app!.innerHTML = `
+//   <div>
+//   </div>
+// `;
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(
 	75,
@@ -18,9 +17,9 @@ const camera = new THREE.PerspectiveCamera(
 );
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-app?.appendChild(renderer.domElement);
+// app?.appendChild(renderer.domElement);
 
-HomePage(scene, camera)
+// HomePage(scene, camera)
 
 function animate() {
 	requestAnimationFrame(animate);
@@ -33,4 +32,5 @@ console.log(document)
 animate();
 
 
-const experience = new Experience(document.querySelector(".experience-canvas"))
+// const experience = new Experience(document.querySelector(".experience-canvas"))
+const page = new Page(document.querySelector(".page-canvas") || undefined);

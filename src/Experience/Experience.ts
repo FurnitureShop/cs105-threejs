@@ -3,10 +3,15 @@ import * as THREE from "three"
 
 export default class Experience {
     canvas: any;
+    scene: THREE.Scene;
+    camera: THREE.PerspectiveCamera;
+    resources: any;
+    sizes: any;
+
     constructor(canvas: any) {
         this.canvas = canvas;
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        this.scene = new THREE.Scene();
+        this.camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
         const renderer = new THREE.WebGLRenderer();
         renderer.setSize(window.innerWidth, window.innerHeight);
@@ -15,19 +20,19 @@ export default class Experience {
         const geometry = new THREE.BoxGeometry(1, 1, 1);
         const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
         const cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
+        this.scene.add(cube);
 
-        camera.position.z = 5;
+        this.camera.position.z = 5;
 
-        function animate() {
-            requestAnimationFrame(animate);
+        // function animate(this: any) {
+        //     requestAnimationFrame(animate);
 
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
+        //     cube.rotation.x += 0.01;
+        //     cube.rotation.y += 0.01;
 
-            renderer.render(scene, camera);
-        }
+        //     renderer.render( this.scene, this.camera);
+        // }
 
-        animate();
+        // animate(this);
     }
 }
