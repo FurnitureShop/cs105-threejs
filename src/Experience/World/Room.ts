@@ -58,12 +58,31 @@ export default class Room {
             child.children[0].material.opacity = 1;
             child.children[0].material.depthWrite = false;
             child.children[0].material.depthTest = false;
+
+            this.setupAreaLight(child)
          }
       })
 
       this.scene.add(this.room)
       this.room.scale.set(0.15, 0.15, 0.15)
       // this.room.rotation.y = Math.PI
+   }
+
+   setupAreaLight(object: THREE.Object3D) {
+      //set light for the aquarium
+      const width = 1;
+      const height = 1;
+      const intensity = 3;
+      const rectLight = new THREE.RectAreaLight(
+         0xffffff,
+         intensity,
+         width,
+         height
+      );
+      rectLight.position.set(1, 5, -1);
+      rectLight.rotation.x = -Math.PI / 2;
+      rectLight.rotation.z = Math.PI / 4;
+      object.add(rectLight);
    }
 
    onMouseMove() {
