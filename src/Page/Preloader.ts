@@ -1,10 +1,10 @@
 import { EventEmitter } from "events";
 import * as THREE from "three";
-import World from "../Page/World/World";
-import Page from "../Page/Page";
-import Camera from "../Page/Camera";
+import World from "./World/World";
+import Page from "./Page";
+import Camera from "./Camera";
 import GSAP from "gsap";
-import Sizes from "../Page/Utils/Size";
+import Sizes from "./Utils/Size";
 
 export default class Preloader extends EventEmitter {
 	private page;
@@ -18,7 +18,6 @@ export default class Preloader extends EventEmitter {
 	// Store queue animation and excute by time line
 	private timeline?: gsap.core.Timeline;
 	private device: string;
-	private clickOneEvent: () => void;
 
 	constructor() {
 		super();
@@ -62,6 +61,14 @@ export default class Preloader extends EventEmitter {
 		return new Promise((resolve) => {
 			if (!this.roomChildren || !this.room) return;
 			this.timeline = GSAP.timeline();
+
+			this.timeline.to(".preloader", {
+				opacity: 0,
+				delay: 0,
+				onComplete: () => {
+					document.querySelector('.preloader')?.classList.add('hidden');
+				}
+			})
 
 			if (this.device === "desktop") {
 				this.timeline
