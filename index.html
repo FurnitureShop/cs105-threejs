@@ -1,18 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Vite + TS</title>
-	</head>
 
-	<body>
-		<!-- <div id="app"></div> -->
-		<div class="room">
-			<canvas class="room-canvas"></canvas>
-		</div>
+<head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>CS105</title>
+</head>
 
-		<!-- <div class="preloader">
+<body class="light">
+   <!-- <div id="app"></div> -->
+   <div class="experience">
+      <canvas class="experience-canvas"></canvas>
+   </div>
+
+   <!-- <div class="preloader">
 			<div class="preloader-wrapper">
 				<div class="loading">
 					<div class="circle"></div>
@@ -21,19 +22,120 @@
 				</div>
 			</div>
 		</div> -->
-		<!-- Intro Stuff -->
-		<div class="page">
-			<div class="page-wrapper">
-				<div class="intro">
-					<div class="intro-text">Furniturer!</div>
-				</div>
-				<div class="home-page">
-					<div class="room-container">
-						<div class="room-title">Kitchen</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<script type="module" src="/src/main.ts"></script>
-	</body>
+
+   <div class="page" asscroll-container>
+
+      <div class="toggle-bar">
+         <div class="sun-wrapper">
+            <img width="24px" height="24px" alt="light mode icon" src="assets/sunny_FILL0_wght400_GRAD0_opsz24.svg" />
+         </div>
+         <button class="toggle-button">
+            <div class="toggle-circle"></div>
+         </button>
+         <div class="moon-wrapper">
+            <img width="24px" height="24px" alt="light mode icon"
+               src="assets/dark_mode_FILL0_wght400_GRAD0_opsz24.svg" />
+         </div>
+      </div>
+
+      <div class="page-wrapper" asscroll>
+         <section class="hero">
+            <div class="hero-wrapper">
+
+               <!-- Intro -->
+               <div class="intro">
+                  <div class="intro-text">Furniturer!</div>
+               </div>
+               <div class="home-page">
+                  <div class="room-container">
+                     <div class="room-title">Kitchen</div>
+                  </div>
+               </div>
+               <!-- Intro -->
+
+               <div class="hero-main">
+                  <h1 class="hero-main-title">Abigail Bloom</h1>
+                  <p class="hero-main-description">Digital Media Student | 3D Artist</p>
+               </div>
+
+               <div class="hero-second">
+                  <h1 class="hero-second-subheading">Abigail Bloom</h1>
+                  <p class="hero-second-subheading">Portfolio</p>
+               </div>
+            </div>
+         </section>
+
+         <div class="first-section-margin section-margin"></div>
+
+         <section class="first-section section left">
+            <div class="progress-wrapper progress-bar-wrapper-left">
+               <div class="progress-bar pink-background"></div>
+            </div>
+
+            <div class="section-intro-wrapper">
+               <h1 class="section-title">
+                  <span class="section-title-text">About Me</span>
+               </h1>
+               <span class="section-number">01</span>
+            </div>
+
+            <div class="section-detail-wrapper">
+               <h3 class="section-heading">Lorem Ipsum</h3>
+               <p class="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic expedita qui quae
+                  officiis, magni velit iste repellat consequuntur temporibus. Quasi atque officia iste beatae rerum,
+                  harum
+                  itaque accusamus. At, natus?</p>
+            </div>
+         </section>
+
+         <div class="second-section-margin section-margin"></div>
+
+         <section class="second-section section right">
+            <div class="progress-wrapper progress-bar-wrapper-right">
+               <div class="progress-bar blue-background"></div>
+            </div>
+
+            <div class="section-intro-wrapper">
+               <h1 class="section-title">
+                  <span class="section-title-text">About Me</span>
+               </h1>
+               <span class="section-number">02</span>
+            </div>
+
+            <div class="section-detail-wrapper">
+               <h3 class="section-heading">Lorem Ipsum</h3>
+               <p class="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic expedita qui quae
+                  officiis, magni velit iste repellat consequuntur temporibus. Quasi atque officia iste beatae rerum,
+                  harum
+                  itaque accusamus. At, natus?</p>
+            </div>
+         </section>
+
+         <div class="third-section-margin section-margin"></div>
+
+         <section class="third-section section left">
+            <div class="progress-wrapper progress-bar-wrapper-left">
+               <div class="progress-bar green-background"></div>
+            </div>
+
+            <div class="section-intro-wrapper">
+               <h1 class="section-title">
+                  <span class="section-title-text">About Me</span>
+               </h1>
+               <span class="section-number">03</span>
+            </div>
+
+            <div class="section-detail-wrapper">
+               <h3 class="section-heading">Lorem Ipsum</h3>
+               <p class="section-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Hic expedita qui quae
+                  officiis, magni velit iste repellat consequuntur temporibus. Quasi atque officia iste beatae rerum,
+                  harum
+                  itaque accusamus. At, natus?</p>
+            </div>
+         </section>
+      </div>
+   </div>
+   <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
