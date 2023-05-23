@@ -12,7 +12,7 @@ export default class Controls {
    timeline!: gsap.core.Timeline;
    room: any;
    sizes: any;
-   rectLight: THREE.RectAreaLight;
+   rectLight?: THREE.RectAreaLight;
    asscroll!: ASScroll;
    circleFirst: THREE.Mesh<THREE.CircleGeometry, THREE.MeshStandardMaterial>;
    circleSecond: THREE.Mesh<THREE.CircleGeometry, THREE.MeshStandardMaterial>;
@@ -24,9 +24,9 @@ export default class Controls {
       this.scene = this.experience.scene;
       this.resources = this.experience.resources;
       this.time = this.experience.time;
-      this.rectLight = this.experience.world.room.rectLight;
-      this.room = this.experience.world.room.room;
+      this.room = this.experience.world.room.actualRoom;
       this.sizes = this.experience.sizes;
+      this.rectLight = this.experience.world.room.roomChildren['rectLight'] as THREE.RectAreaLight;
 
       this.circleFirst = this.experience.world.floor.circleFirst;
       this.circleSecond = this.experience.world.floor.circleSecond;
@@ -93,7 +93,9 @@ export default class Controls {
          "(min-width: 969px)": () => {
             console.log("desktop")
             this.room.scale.set(0.15, 0.15, 0.15)
-            this.rectLight.intensity = 3;
+            if (this.rectLight) {
+               this.rectLight.intensity = 3;
+            }
             //first section
             //@ts-ignore
             const firstTimeline = new GSAP.timeline({
@@ -143,7 +145,9 @@ export default class Controls {
          "(max-width: 968px)": () => {
             console.log("mobile")
             this.room.scale.set(0.1, 0.1, 0.1)
-            this.rectLight.intensity = 1.5;
+            if (this.rectLight) {
+               this.rectLight.intensity = 1.5;
+            }
             //first section
             //@ts-ignore
             const firstTimeline = new GSAP.timeline({

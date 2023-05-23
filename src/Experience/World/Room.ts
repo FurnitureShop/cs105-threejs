@@ -1,15 +1,26 @@
 import * as THREE from "three";
 import Experience from "../Experience";
 import GSAP from "gsap";
+import { GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
+import Resources from "../Utils/Resources";
+import { HEIGHT, INTENSITY, WIDTH } from "../../constant/rectLight";
+
+type LerpType = {
+   current: number;
+   target: number;
+   ease: number;
+};
 
 export default class Room {
    experience: Experience;
    scene: THREE.Scene;
-   resources: any;
-   room: any;
-   lerp: any;
-   rotation: any;
+   resources: Resources;
+   room: GLTF;
+   lerp: LerpType;
+   rotation: number;
    rectLight!: THREE.RectAreaLight;
+   actualRoom: THREE.Group;
+   roomChildren: { [key in string]: THREE.Object3D<THREE.Event> };
    //for animations
    // mixer!: THREE.AnimationMixer;
    // swim!: THREE.AnimationAction;
@@ -18,7 +29,11 @@ export default class Room {
       this.experience = new Experience();
       this.scene = this.experience.scene;
       this.resources = this.experience.resources;
-      this.room = this.resources.items[roomName].scene
+      console.log(roomName)
+      this.room = this.resources.items[roomName];
+      this.actualRoom = this.room.scene;
+      this.roomChildren = {};
+      this.rotation = 0;
       // console.log(this.room)
       //TODO: need to understand the moving camera along curves
       this.lerp = {
@@ -34,7 +49,7 @@ export default class Room {
 
    setModel() {
       console.log(this.room)
-      this.room.children.forEach((child: THREE.Object3D) => {
+      this.actualRoom.children.forEach((child: THREE.Object3D<THREE.Event>) => {
          // console.log(child)
          child.castShadow = true;
          child.receiveShadow = true;
@@ -50,22 +65,38 @@ export default class Room {
 
          //only specific for room_01
          if (child.name === "Aquarium") {
-            // console.log(child);
-            child.children[0].material = new THREE.MeshPhysicalMaterial();
-            child.children[0].material.roughness = 0;
-            child.children[0].material.color.set(0x549dd2);
-            child.children[0].material.ior = 3;
-            child.children[0].material.transmission = 1;
-            child.children[0].material.opacity = 1;
-            child.children[0].material.depthWrite = false;
-            child.children[0].material.depthTest = false;
+            const aquarium = child.children[0] as THREE.Mesh;
+            aquarium.material = new THREE.MeshPhysicalMaterial();
+            const aquariumMaterial = aquarium.material as THREE.MeshPhysicalMaterial
+            aquariumMaterial.roughness = 0;
+            aquariumMaterial.color.set(0x549dd2);
+            aquariumMaterial.ior = 3;
+            aquariumMaterial.transmission = 1;
+            aquariumMaterial.opacity = 1;
+            aquariumMaterial.depthWrite = false;
+            aquariumMaterial.depthTest = false;
 
             this.setupAreaLight(child)
          }
+
+                  // child.scale.set(0, 0, 0);
+                  if (child.name === "Cube") {
+                     child.position.set(0, -1.5, 0);
+                     child.rotation.y = Math.PI / 4;
+                  }
+
+         this.roomChildren[child.name.toLowerCase()] = child;
       })
 
-      this.scene.add(this.room)
-      this.room.scale.set(0.15, 0.15, 0.15)
+
+      // const rectLightHelper = new RectAreaLightHelper(rectLight);
+      // rectLight.add(rectLightHelper);
+      // console.log(this.room);
+
+      this.scene.add(this.actualRoom);
+      this.actualRoom.scale.set(0.11, 0.11, 0.11);
+
+      this.scene.add(this.actualRoom);
       // this.room.rotation.y = Math.PI
    }
 
@@ -74,16 +105,17 @@ export default class Room {
       const width = 1;
       const height = 1;
       const intensity = 3;
-      this.rectLight = new THREE.RectAreaLight(
+      const rectLight = new THREE.RectAreaLight(
          0xffffff,
          intensity,
          width,
          height
       );
-      this.rectLight.position.set(1, 5, -1);
-      this.rectLight.rotation.x = -Math.PI / 2;
-      this.rectLight.rotation.z = Math.PI / 4;
-      object.add(this.rectLight);
+      rectLight.position.set(1, 5, -1);
+      rectLight.rotation.x = -Math.PI / 2;
+      rectLight.rotation.z = Math.PI / 4;
+      object.add(rectLight);
+      this.roomChildren["rectLight"] = rectLight;
    }
 
    onMouseMove() {
@@ -110,7 +142,7 @@ export default class Room {
          this.lerp.target,
          this.lerp.ease
       )
-      this.room.rotation.y = this.lerp.current
+      this.actualRoom.rotation.y = this.lerp.current
       // this.mixer.update(this.experience.time.delta)
    }
 }

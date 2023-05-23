@@ -40,17 +40,19 @@ export default class Camera {
    }
 
    createOrthographicCamera() {
-      this.orthographicCamera = new THREE.OrthographicCamera(
-         (-this.sizes.aspect * this.sizes.frostum) / 2,
-         (this.sizes.aspect * this.sizes.frostum) / 2,
-         this.sizes.frostum / 2,
-         -this.sizes.frostum / 2,
-         -50,
-         50
-      )
+		this.orthographicCamera = new THREE.OrthographicCamera(
+			(-this.sizes.aspect * this.sizes.frustrum) / 2,
+			(this.sizes.aspect * this.sizes.frustrum) / 2,
+			this.sizes.frustrum / 2,
+			-this.sizes.frustrum / 2,
+			-50,
+			50
+		);
       // this.orthographicCamera.position.x
-      this.orthographicCamera.position.y = 4
-      this.orthographicCamera.position.z = 5
+           this.orthographicCamera.position.y = 5.65;
+           this.orthographicCamera.position.z = 10; 
+      // this.orthographicCamera.position.y = 4
+      // this.orthographicCamera.position.z = 5
       this.orthographicCamera.rotation.x = -Math.PI / 6;
       this.scene.add(this.orthographicCamera)
 
@@ -76,10 +78,10 @@ export default class Camera {
       this.perspectiveCamera.updateProjectionMatrix();
 
       //Update Orthographic Camera on resize
-      this.orthographicCamera.left = (-this.sizes.aspect * this.sizes.frostum) / 2
-      this.orthographicCamera.right = (this.sizes.aspect * this.sizes.frostum) / 2
-      this.orthographicCamera.top = this.sizes.frostum / 2
-      this.orthographicCamera.bottom = -this.sizes.frostum / 2
+      this.orthographicCamera.left = (-this.sizes.aspect * this.sizes.frustrum) / 2
+      this.orthographicCamera.right = (this.sizes.aspect * this.sizes.frustrum) / 2
+      this.orthographicCamera.top = this.sizes.frustrum / 2
+      this.orthographicCamera.bottom = -this.sizes.frustrum / 2
       this.orthographicCamera.updateProjectionMatrix()
    }
 

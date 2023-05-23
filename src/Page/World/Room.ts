@@ -60,19 +60,6 @@ export default class Room {
 			this.roomChildren[child.name.toLowerCase()] = child;
 		});
 
-		const rectLight = new THREE.RectAreaLight(
-			0xffffff,
-			INTENSITY,
-			WIDTH,
-			HEIGHT
-		);
-		rectLight.position.set(7.68244, 7, 0.5);
-		rectLight.rotation.x = -Math.PI / 2;
-		rectLight.rotation.z = Math.PI / 4;
-		this.actualRoom.add(rectLight);
-
-		this.roomChildren["rectLight"] = rectLight;
-
 		// const rectLightHelper = new RectAreaLightHelper(rectLight);
 		// rectLight.add(rectLightHelper);
 		// console.log(this.room);

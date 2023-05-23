@@ -8,6 +8,7 @@ import World from "./World/World";
 import Resources from "./Utils/Resources";
 import assets from "./Utils/assets";
 import Theme from "./Utils/Theme";
+import Preloader from "./Preloader";
 
 export default class Experience {
    static instance: any;
@@ -20,6 +21,7 @@ export default class Experience {
    world!: World;
    resources!: Resources;
    theme!: Theme;
+   preloader!: Preloader;
 
    constructor(canvas?: any) {
       if (Experience.instance) {
@@ -36,6 +38,7 @@ export default class Experience {
       this.resources = new Resources(assets)
       this.theme = new Theme();
       this.world = new World();
+      this.preloader = new Preloader();
 
       //listen on "resize" event from EventEmitter
       this.sizes.on("resize", () => {
@@ -63,6 +66,7 @@ export default class Experience {
    }
 
    update() {
+      this.preloader.update();
       this.camera.update();
       this.renderer.update();
       this.world.update()

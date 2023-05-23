@@ -6,7 +6,7 @@ import Camera from "./Camera";
 import World from "./World/World";
 import Resources from "./Utils/Resources";
 import assets from "./Utils/assets";
-import Preloader from "./Preloader";
+import Preloader from "../Experience/Preloader";
 // import Preloader from "./Preloader";
 // import World from './World/World';
 // import Resources from "./Utils/Resources";

@@ -5,8 +5,9 @@ import Environment from "./Environment";
 import assets from "../Utils/assets";
 import Controls from "./Controls";
 import Floor from "./Floor";
+import EventEmitter from "events";
 
-export default class World {
+export default class World extends EventEmitter {
    experience: Experience;
    room!: Room;
    sizes: any;
@@ -19,6 +20,8 @@ export default class World {
    floor!: Floor;
 
    constructor() {
+      super();
+
       this.experience = new Experience();
       this.sizes = this.experience.sizes;
       this.scene = this.experience.scene;
@@ -30,7 +33,8 @@ export default class World {
          this.environment = new Environment()
          this.floor = new Floor();
          this.room = new Room(assets[0].name);
-         this.controls = new Controls();
+         // this.controls = new Controls();
+         this.emit("worldready");
          // console.log("room created")
       })
    }

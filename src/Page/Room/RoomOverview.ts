@@ -2,8 +2,8 @@ import { EventEmitter } from "events";
 import * as THREE from "three";
 import GSAP from "gsap";
 import Page from "../Page";
-import Camera from "../Camera";
 import Wall from "../World/Wall";
+import Experience from "../../Experience/Experience";
 
 export default class RoomOverview extends EventEmitter {
 	private page;
@@ -21,7 +21,7 @@ export default class RoomOverview extends EventEmitter {
 
 	constructor() {
 		super();
-		this.page = new Page();
+		this.page = new Experience();
 		this.scene = this.page.scene;
 		this.camera = this.page.camera;
     this.addWall();

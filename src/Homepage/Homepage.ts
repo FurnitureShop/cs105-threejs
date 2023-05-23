@@ -1,5 +1,5 @@
 import * as THREE from "three";
-import Preloader from "../Page/Preloader";
+import Preloader from "../Experience/Preloader";
 import World from '../Page/World/World';
 import Resources from "../Page/Utils/Resources";
 import assets from '../Page/Utils/assets'
