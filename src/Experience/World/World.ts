@@ -29,7 +29,7 @@ export default class World {
       this.resources.on("ready", () => {
          this.environment = new Environment()
          this.floor = new Floor();
-         this.room = new Room(assets[0].name);
+         this.room = new Room(assets[1].name);
          this.controls = new Controls();
          // console.log("room created")
       })
