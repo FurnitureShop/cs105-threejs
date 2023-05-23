@@ -33,4 +33,4 @@ animate();
 
 
 // const experience = new Experience(document.querySelector(".experience-canvas"))
-const page = new Page(document.querySelector(".page-canvas") || undefined);
+const page = new Page(document.querySelector(".room-canvas") || undefined);

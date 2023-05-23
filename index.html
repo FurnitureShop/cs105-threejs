@@ -1,36 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Vite + TS</title>
+	</head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vite + TS</title>
-</head>
+	<body>
+		<!-- <div id="app"></div> -->
+		<div class="room">
+			<canvas class="room-canvas"></canvas>
+		</div>
 
-<body>
-  <!-- <div id="app"></div> -->
-  <div class="page">
-    <canvas class="page-canvas"></canvas>
-  </div>
-
-  <div class="preloader">
-    <div class="preloader-wrapper">
-      <div class="loading">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-      </div>
-    </div>
-
-    <!-- Intro Stuff -->
-    <div class="page-intro">
-      <span class="animatedis">
-        Welcome to my portfolio!
-      </span>
-    </div>
-
-  </div>
-  <script type="module" src="/src/main.ts"></script>
-</body>
-
+		<!-- <div class="preloader">
+			<div class="preloader-wrapper">
+				<div class="loading">
+					<div class="circle"></div>
+					<div class="circle"></div>
+					<div class="circle"></div>
+				</div>
+			</div>
+		</div> -->
+		<!-- Intro Stuff -->
+		<div class="page">
+			<div class="page-wrapper">
+				<div class="intro">
+					<div class="intro-text">Furniturer!</div>
+				</div>
+				<div class="home-page">
+					<div class="room-container">
+						<div class="room-title">Kitchen</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="module" src="/src/main.ts"></script>
+	</body>
 </html>

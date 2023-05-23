@@ -1,35 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Poppins&display=swap');
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
 }
 
-.page {
+.room {
   z-index: 99999;
   width: 100%;
   height: 100vh;
   overflow: hidden;
 }
 
-div.page {
+div.room {
   position: fixed;
   width: 100vw;
   height: 100vh;
 }
 
-.page-canvas {
+.room-canvas {
   width: 100%;
   height: 100%;
 }
 
 /* Loader assets screen */
-.animatedis {
+/* .animatedis {
   transform: translate();
-}
+} */
 
 .preloader{
   background-color: 0xffe6a2;
-  width: 100%;
+  width: 100vw;
   height: 100vh;
   position: fixed;
   opacity: 1;
@@ -85,7 +87,67 @@ div.page {
   display: none
 }
 
+.page {
+  position: relative;
+  z-index: 99999;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.page-wrapper {
+  width: 100vw;
+  height: 100vh;
+}
+
 .animatedis {
   display: inline-block;
   transform: translateY(100%);
+}
+
+.intro {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  max-width: 1100px;
+}
+
+.intro-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-weight: 500;
+  font-size: 24px;
+  color: #333332;
+  transform: translate(-75%, -50%);
+}
+
+.home-page {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  max-width: 1100px;
+}
+
+/* .room-container {
+  max-width: 80%;
+  height: 100%;
+  z-index: 999;
+  background-color: red;
+} */
+
+.room-name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-weight: 500;
+  font-size: 24px;
+  color: #333332;
+  transform: translate(-75%, -50%);
 }
