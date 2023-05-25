@@ -7,7 +7,6 @@ import Camera from "./Camera";
 import Sizes from "./Utils/Sizes";
 import World from "./World/World";
 import Resources from "./Utils/Resources";
-import RoomOverview from "../Page/Room/RoomOverview";
 
 export default class Preloader extends EventEmitter {
 	private experience;
@@ -22,7 +21,6 @@ export default class Preloader extends EventEmitter {
 	private timeline?: gsap.core.Timeline;
 	private device: string;
 	currentRoomScene: any;
-	// currentRoomScene?: RoomOverview;
 
 	constructor() {
 		super();
@@ -47,10 +45,8 @@ export default class Preloader extends EventEmitter {
 	setAssets() {
 		convertDivToSpan(document.querySelector(".intro-text"));
 		convertDivToSpan(document.querySelector(".room-title"));
-		convertDivToSpan(document.querySelector('.hero-main'));
-		convertDivToSpan(document.querySelector('.hero-second'));
-		// convertDivToSpan(document.querySelector(''));
-		// convertDivToSpan(document.querySelector(''));
+		convertDivToSpan(document.querySelector(".hero-main"));
+		convertDivToSpan(document.querySelector(".hero-second"));
 
 		this.room = this.world.room?.actualRoom;
 		this.roomChildren = this.world.room?.roomChildren;
@@ -58,13 +54,21 @@ export default class Preloader extends EventEmitter {
 
 	async playIntro() {
 		await this.firstIntro();
-		this.currentRoomScene = new RoomOverview();
+		if (this.roomChildren) {
+			this.roomChildren.cube.rotation.y = Math.PI / 4;
+			window.removeEventListener(
+				"mousemove",
+				this.experience.world.room.mouseMoveEvent
+			);
+		}
+
+		this.world.emit("changehomepage");
 	}
 
 	firstIntro() {
 		return new Promise((resolve) => {
 			if (!this.roomChildren || !this.room) return;
-			console.log(this.roomChildren)
+			console.log(this.roomChildren);
 			this.timeline = GSAP.timeline();
 			this.timeline.to(".preloader", {
 				opacity: 0,
@@ -142,32 +146,31 @@ export default class Preloader extends EventEmitter {
 						},
 					},
 					"same"
+				);
+			this.timeline
+				.to(
+					this.roomChildren.cube.scale,
+					{
+						x: 5,
+						y: 5,
+						z: 5,
+					},
+					"same"
 				)
-			this.timeline.to(
-				this.roomChildren.cube.scale,
-				{
-					x: 5,
-					y: 5,
-					z: 5,
-				},
-				"same"
-			)
 				.to(
 					this.roomChildren.cube.position,
 					{
 						x: 0.638711,
 						y: 2.5,
 						z: 1.3243,
-						onComplete: resolve
+						onComplete: resolve,
 					},
 					"same"
-				)
+				);
 		});
 	}
 
-	resize() { }
+	resize() {}
 
-	update() {
-
-	 }
+	update() {}
 }

@@ -4,6 +4,7 @@
    margin: 0;
    padding: 0;
    box-sizing: border-box;
+   user-select: none;
 }
 
 html,
@@ -366,7 +367,7 @@ div.experience {
 }
 
 .hidden {
-   display: none
+   display: none !important
 }
 
 /* Preloader Stuff */
@@ -386,4 +387,45 @@ div.experience {
    font-size: 16px;
    color: var(--color-text);
    transform: translate(-50%, -50%);
+}
+
+.room-title {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   position: absolute;
+   top: 20%;
+   left: 50%;
+   font-weight: 500;
+   font-size: 40px;
+   color: var(--color-text);
+   transform: translate(-50%, -50%);
+}
+
+.room-choice-container {
+   display: flex;
+   gap: 100px;
+   justify-content: center;
+   align-items: center;
+   position: absolute;
+   top: 80%;
+   left: 50%;
+   font-weight: 500;
+   font-size: 40px;
+   color: var(--color-text);
+   transform: translate(-50%, -50%);
+   z-index: 1;
+}
+
+.room-choice {
+   border: 3px solid var(--color-text);
+   cursor: pointer;
+   width: 24px;
+   height: 24px;
+   animation: none;
+   background-color: var(--color-background);
+}
+
+.room-choice.active {
+   background-color: var(--color-text);
 }
