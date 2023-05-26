@@ -21,6 +21,7 @@ export default class Room {
 	actualRoom: THREE.Group;
 	roomChildren: { [key in string]: THREE.Object3D<THREE.Event> };
 	mouseMoveEvent!: (event: MouseEvent) => void;
+	cube?: GLTF;
 	//for animations
 	// mixer!: THREE.AnimationMixer;
 	// swim!: THREE.AnimationAction;
@@ -29,7 +30,10 @@ export default class Room {
 		this.experience = new Experience();
 		this.scene = this.experience.scene;
 		this.resources = this.experience.resources;
-		console.log(roomName);
+		console.log(this.resources);
+		if(roomName !== 'cube') {
+			this.cube = this.resources.items['cube'];
+		}
 		this.room = this.resources.items[roomName];
 		this.actualRoom = this.room.scene;
 		this.roomChildren = {};
@@ -41,7 +45,7 @@ export default class Room {
 			target: 0,
 			ease: 0.1,
 		};
-
+		
 		this.setModel();
 		this.onMouseMove();
 		// this.setAnimation();
@@ -89,13 +93,42 @@ export default class Room {
 			this.roomChildren[child.name.toLowerCase()] = child;
 		});
 
+		this.cube?.scene.children.forEach((child: THREE.Object3D<THREE.Event>) => {
+			// console.log(child)
+			child.castShadow = true;
+			child.receiveShadow = true;
+
+			//Threejs automatically group mesh together
+			//So need to check if child is a group to add castShadow
+			if (child instanceof THREE.Group) {
+				child.children.forEach((groupChild) => {
+					groupChild.castShadow = true;
+					groupChild.receiveShadow = true;
+				});
+			}
+
+			// child.scale.set(0, 0, 0);
+			if (child.name === "Cube") {
+				child.position.set(0, -1.5, 0);
+				child.rotation.y = Math.PI / 4;
+			}
+
+			this.roomChildren[child.name.toLowerCase()] = child;
+		});
+
 		// const rectLightHelper = new RectAreaLightHelper(rectLight);
 		// rectLight.add(rectLightHelper);
 		// console.log(this.room);
 
 		this.scene.add(this.actualRoom);
 		this.actualRoom.scale.set(0.11, 0.11, 0.11);
-
+		this.actualRoom.rotateY(Math.PI * 3 /4)
+		if(this.cube) {
+			this.cube.scene.scale.set(0.11, 0.11, 0.11);
+			// this.scene.add(this.cube.scene);
+		}
+		// this.scene.add(this.cube);
+		// this.scene.emp
 		this.scene.add(this.actualRoom);
 		// this.room.rotation.y = Math.PI
 	}

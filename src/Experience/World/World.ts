@@ -48,6 +48,10 @@ export default class World extends EventEmitter {
 		this.on("changehomepage", () => {
 			this.currentScene = new RoomOverview();
 		});
+
+		this.on("showroom", (roomIndex: number) => {
+			this.room = new Room(assets[2].name);
+		})
 	}
 
 	resize() {}
