@@ -15,8 +15,9 @@ export default class BokoRoom extends EventEmitter {
 		this.experience = new Experience();
 		this.timeline = GSAP.timeline();
 		// this.setAssets();
-		this.cube = this.experience.world.cube.cubeRoom;
+      this.cube = this.experience.world.cube.cubeRoom;
 		this.on("done-loading-room", () => {
+         // console.log(this.experience.world.room)
 			this.roomChildren = this.experience.world.room.roomChildren;
 			this.playLoadingRoom();
 			this.attachBackEvent();
@@ -32,9 +33,9 @@ export default class BokoRoom extends EventEmitter {
 		document
 			.querySelector(".toggle-bar-camera")
 			?.classList.toggle("hidden", false);
-		console.log(this.roomChildren);
-		const axesHelper = new THREE.AxesHelper(5);
-		this.experience.scene.add(axesHelper);
+		console.log(this.experience.world.room);
+		// const axesHelper = new THREE.AxesHelper(5);
+		// this.experience.scene.add(axesHelper);
 		this.timeline
 			.set(this.experience.world.room.actualRoom.scale, {
 				x: 0.25,
@@ -196,12 +197,7 @@ export default class BokoRoom extends EventEmitter {
 		document
 			.querySelector(".toggle-bar-camera")
 			?.classList.toggle("hidden", true);
-		// Enable to fix bug shadow when scale big cube
-		const aquariumMaterial = (
-			this.roomChildren.aquarium.children[0] as THREE.Mesh
-		).material as THREE.MeshPhysicalMaterial;
-		aquariumMaterial.depthTest = true;
-		aquariumMaterial.depthWrite = true;
+		
 		this.timeline
 			.to(this.cube.scale, {
 				x: 10,

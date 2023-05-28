@@ -46,7 +46,8 @@ export default class Room {
 		// this.setAnimation();
 	}
 
-	setModel() {
+   setModel() {
+      // console.log(this.actualRoom)
 		this.actualRoom.children.forEach((child: THREE.Object3D<THREE.Event>) => {
 			child.castShadow = true;
 			child.receiveShadow = true;
@@ -58,24 +59,7 @@ export default class Room {
 					groupChild.castShadow = true;
 					groupChild.receiveShadow = true;
 				});
-			}
-
-			//only specific for room_01
-			if (child.name === "Aquarium") {
-				const aquarium = child.children[0] as THREE.Mesh;
-				aquarium.material = new THREE.MeshPhysicalMaterial();
-				const aquariumMaterial =
-					aquarium.material as THREE.MeshPhysicalMaterial;
-				aquariumMaterial.roughness = 0;
-				aquariumMaterial.color.set(0x549dd2);
-				aquariumMaterial.ior = 3;
-				aquariumMaterial.transmission = 1;
-				aquariumMaterial.opacity = 1;
-				aquariumMaterial.depthWrite = false;
-				aquariumMaterial.depthTest = false;
-
-				this.setupAreaLight(child);
-			}
+         }
 			child.scale.set(0, 0, 0);
 
 			this.roomChildren[child.name.toLowerCase()] = child;
@@ -83,28 +67,6 @@ export default class Room {
 
 		this.actualRoom.scale.set(0.11, 0.11, 0.11);
 		this.scene.add(this.actualRoom);
-	}
-
-	setupAreaLight(object: THREE.Object3D) {
-		//set light for the aquarium
-		const width = 1;
-		const height = 1;
-		const intensity = 3;
-		const rectLight = new THREE.RectAreaLight(
-			'red',
-			intensity,
-			width,
-			height
-		);
-		rectLight.position.set(1, 5, -1);
-		rectLight.rotation.x = -Math.PI / 2;
-		rectLight.rotation.z = Math.PI / 4;
-
-		const rectLightHelper = new RectAreaLightHelper(rectLight);
-		rectLight.add(rectLightHelper);
-
-		object.add(rectLight);
-		this.roomChildren["rectLight"] = rectLight;
 	}
 
 	onMouseMove() {
@@ -138,6 +100,6 @@ export default class Room {
 
 	clearRoom() {
 		this.scene.remove(this.actualRoom)
-		this.roomChildren.aquarium.remove(this.roomChildren.rectLight)
+		// this.roomChildren.aquarium.remove(this.roomChildren.rectLight)
 	}
 }

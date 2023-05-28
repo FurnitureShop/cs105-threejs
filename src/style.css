@@ -96,8 +96,8 @@ div.experience {
    flex-direction: row;
    justify-content: center;
    align-items: center;
-   top: 48px;
-   right: 231px;
+   top: 96px;
+   right: 48px;
    z-index: 99999;
 }
 
@@ -258,7 +258,7 @@ div.experience {
 }
 
 .section-heading {
-   font-size: 18px;
+   font-size: 24px;
    font-weight: 700;
    line-height: 1.8;
    margin-top: 64px;
@@ -268,7 +268,7 @@ div.experience {
 .section-text {
    line-height: 2;
    margin-top: 18px;
-   font-size: 16px;
+   font-size: 20px;
    color: var(--color-text);
 }
 

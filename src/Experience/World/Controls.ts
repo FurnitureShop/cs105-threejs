@@ -26,7 +26,7 @@ export default class Controls {
       this.time = this.experience.time;
       this.room = this.experience.world.room.actualRoom;
       this.sizes = this.experience.sizes;
-      this.rectLight = this.experience.world.room.roomChildren['rectLight'] as THREE.RectAreaLight;
+      // this.rectLight = this.experience.world.room.roomChildren['rectLight'] as THREE.RectAreaLight;
 
       this.circleFirst = this.experience.world.floor.circleFirst;
       this.circleSecond = this.experience.world.floor.circleSecond;
@@ -93,9 +93,9 @@ export default class Controls {
          //desktop
          "(min-width: 969px)": () => {
             this.room.scale.set(0.11, 0.11, 0.11)
-            if (this.rectLight) {
-               this.rectLight.intensity = 3;
-            }
+            // if (this.rectLight) {
+            //    this.rectLight.intensity = 3;
+            // }
             //first section
             //@ts-ignore
             const firstTimeline = new GSAP.timeline({
@@ -144,9 +144,9 @@ export default class Controls {
          //mobile
          "(max-width: 968px)": () => {
             this.room.scale.set(0.1, 0.1, 0.1)
-            if (this.rectLight) {
-               this.rectLight.intensity = 1.5;
-            }
+            // if (this.rectLight) {
+            //    this.rectLight.intensity = 1.5;
+            // }
             //first section
             //@ts-ignore
             const firstTimeline = new GSAP.timeline({
