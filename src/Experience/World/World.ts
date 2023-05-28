@@ -8,8 +8,9 @@ import Floor from "./Floor";
 import EventEmitter from "events";
 import RoomOverview from "../Room/RoomOverview";
 import Cube from "./Cube";
-import RoomBedroom1 from "../Room/RoomBedroom1";
+import BokoRoom from "../Room/BokoRoom";
 import { ROOM_DATA } from "../../constant/roomTitle";
+import SleepingRoom from "../Room/SleepingRoom";
 
 export default class World extends EventEmitter {
 	experience: Experience;
@@ -61,12 +62,16 @@ export default class World extends EventEmitter {
 				document.querySelector(".section-description")!.innerHTML =
 					ROOM_DATA[this.currentRoomIndex].description;
 			}
-			switch (this.currentRoomIndex) {
+			// The first room in assets is a cube. Room layout start from 1.
+			switch (this.currentRoomIndex + 1) {
 				case 1:
-					this.currentRoom = new RoomBedroom1();
+					this.currentRoom = new SleepingRoom();
+					break;
+				case 2:
+					this.currentRoom = new BokoRoom();
 					break;
 				default:
-					this.currentRoom = new RoomBedroom1();
+					this.currentRoom = new BokoRoom();
 			}
 			this.room = new Room(assets[this.currentRoomIndex + 1].name);
 			this.controls = new Controls();

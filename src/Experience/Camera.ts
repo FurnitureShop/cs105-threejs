@@ -81,8 +81,6 @@ export default class Camera extends EventEmitter {
 		this.controls.enableZoom = true;
 		this.controls.maxDistance = 15;
 		this.controls.maxPolarAngle = 1.5;
-		const helper = new THREE.CameraHelper(this.orthographicCamera);
-		this.scene.add(helper);
 	}
 
 	setEventListeners() {

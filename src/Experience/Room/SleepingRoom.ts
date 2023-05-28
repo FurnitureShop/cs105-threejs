@@ -3,7 +3,7 @@ import * as THREE from "three";
 import GSAP from "gsap";
 import Experience from "../Experience";
 
-export default class RoomBedroom1 extends EventEmitter {
+export default class BokoRoom extends EventEmitter {
 	private experience;
 	private timeline: gsap.core.Timeline;
 	roomChildren!: { [key in string]: THREE.Object3D<THREE.Event> };
@@ -32,11 +32,19 @@ export default class RoomBedroom1 extends EventEmitter {
 		document
 			.querySelector(".toggle-bar-camera")
 			?.classList.toggle("hidden", false);
+		console.log(this.roomChildren);
+		const axesHelper = new THREE.AxesHelper(5);
+		this.experience.scene.add(axesHelper);
 		this.timeline
-			.set(this.roomChildren.body.scale, {
-				x: 1,
-				y: 1,
-				z: 1,
+			.set(this.experience.world.room.actualRoom.scale, {
+				x: 0.25,
+				y: 0.25,
+				z: 0.25,
+			})
+			.set(this.roomChildren.room.scale, {
+				x: 4,
+				y: 4,
+				z: 4,
 			})
 			.to(this.cube.scale, {
 				x: 0,
@@ -83,8 +91,8 @@ export default class RoomBedroom1 extends EventEmitter {
 				},
 				"introtext"
 			)
-			.to(
-				this.roomChildren.aquarium.scale,
+      .to(
+				this.roomChildren.frame.scale,
 				{
 					x: 1,
 					y: 1,
@@ -95,40 +103,62 @@ export default class RoomBedroom1 extends EventEmitter {
 				">-0.5"
 			)
 			.to(
-				this.roomChildren.clock.scale,
+				this.roomChildren.hexagon.scale,
 				{
 					x: 1,
 					y: 1,
 					z: 1,
+					ease: "back.out(2.2)",
+					duration: 0.5,
+				},
+				">-0.5"
+			)
+			.to(
+				this.roomChildren.blanket.scale,
+				{
+					x: 0.912741,
+					y: 0.912741,
+					z: 0.912741,
 					ease: "back.out(2.2)",
 					duration: 0.5,
 				},
 				">-0.4"
 			)
 			.to(
-				this.roomChildren.shelves.scale,
+				this.roomChildren.lamp_base.scale,
 				{
-					x: 1,
-					y: 1,
-					z: 1,
+					x: 0.278656,
+					y: 0.278656,
+					z: 0.278656,
 					ease: "back.out(2.2)",
 					duration: 0.5,
 				},
 				">-0.3"
 			)
 			.to(
-				this.roomChildren.floor_items.scale,
+				this.roomChildren.matress.scale,
 				{
-					x: 1,
-					y: 1,
-					z: 1,
+					x: 0.912741,
+					y: 0.912741,
+					z: 0.912741,
 					ease: "back.out(2.2)",
 					duration: 0.5,
 				},
 				">-0.2"
 			)
 			.to(
-				this.roomChildren.desks.scale,
+				this.roomChildren.nightstand_table.scale,
+				{
+					x: 0.852012,
+					y: 0.852012,
+					z: 0.852012,
+					ease: "back.out(2.2)",
+					duration: 0.5,
+				},
+				">-0.1"
+			)
+			.to(
+				this.roomChildren.wardrobe.scale,
 				{
 					x: 1,
 					y: 1,
@@ -137,55 +167,6 @@ export default class RoomBedroom1 extends EventEmitter {
 					duration: 0.5,
 				},
 				">-0.1"
-			)
-			.to(
-				this.roomChildren.table_stuff.scale,
-				{
-					x: 1,
-					y: 1,
-					z: 1,
-					ease: "back.out(2.2)",
-					duration: 0.5,
-				},
-				">-0.1"
-			)
-			.to(this.roomChildren.computer.scale, {
-				x: 1,
-				y: 1,
-				z: 1,
-				ease: "back.out(2.2)",
-				duration: 0.5,
-			})
-			.to(
-				this.roomChildren.chair.scale,
-				{
-					x: 1,
-					y: 1,
-					z: 1,
-					ease: "back.out(2.2)",
-					duration: 0.5,
-				},
-				"chair"
-			)
-			.to(
-				this.roomChildren.fish.scale,
-				{
-					x: 1,
-					y: 1,
-					z: 1,
-					ease: "back.out(2.2)",
-					duration: 0.5,
-				},
-				"chair"
-			)
-			.to(
-				this.roomChildren.chair.rotation,
-				{
-					y: 4 * Math.PI + Math.PI / 4,
-					ease: "power2.out",
-					duration: 1,
-				},
-				"chair"
 			)
 			.to(".btn-back", {
 				opacity: 1,
