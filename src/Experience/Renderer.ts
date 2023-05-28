@@ -48,12 +48,13 @@ export default class Renderer {
    switchCamera(camera: string) {
       if(camera === "perspective") {
          this.camera = this.experience.camera.perspectiveCamera
-         document.querySelector('.page-wrapper')?.classList.toggle('hidden', true);
+         document.querySelector('.page')?.classList.toggle('hidden', true);
+         this.experience.world.controls.asscroll.disable()
       }
       else if (camera === "orthographic") {
          this.camera = this.experience.camera.orthographicCamera
-         document.querySelector('.page-wrapper')?.classList.toggle('hidden', false);
-
+         document.querySelector('.page')?.classList.toggle('hidden', false);
+         this.experience.world.controls.asscroll.enable()
       }
    }
 }

@@ -86,7 +86,7 @@ div.experience {
    align-items: center;
    top: 48px;
    right: 48px;
-   z-index: 9999;
+   z-index: 99999;
 }
 
 .toggle-bar-camera {
@@ -98,7 +98,7 @@ div.experience {
    align-items: center;
    top: 48px;
    right: 231px;
-   z-index: 9999;
+   z-index: 99999;
 }
 
 .sun-wrapper,

@@ -187,6 +187,7 @@ export default class RoomOverview extends EventEmitter {
 				this.currentRoomIndex =
 					additionRoomIndex + roomDirection * roomIndexShouldChange;
 				this.rotateCube();
+				this.updateRoomChoiceIndex();
 			});
 		});
 		this.clickShowRoomEvent = this.clickShowRoom.bind(this, rooms);
