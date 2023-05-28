@@ -2,8 +2,9 @@ import * as THREE from "three";
 import Experience from "./Experience";
 //@ts-ignore
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { EventEmitter } from "events";
 
-export default class Camera {
+export default class Camera extends EventEmitter {
 	experience: Experience;
 	sizes: any;
 	scene: any;
@@ -11,19 +12,31 @@ export default class Camera {
 
 	perspectiveCamera!: THREE.PerspectiveCamera;
 	orthographicCamera!: THREE.OrthographicCamera;
-	controls: any;
+	controls: OrbitControls;
+	toggleButton: any;
+	toggleCircle: any;
+	camera: string;
 
 	// helper!: THREE.CameraHelper;
 
 	constructor() {
+		super();
+
 		this.experience = new Experience();
 		this.sizes = this.experience.sizes;
 		this.scene = this.experience.scene;
 		this.canvas = this.experience.canvas;
-		// console.log(this.experience, this.sizes, this.scene, this.canvas)
+		this.camera = "orthographic";
+		this.toggleButton = document.querySelector(
+			".toggle-bar-camera .toggle-button"
+		);
+		this.toggleCircle = document.querySelector(
+			".toggle-bar-camera .toggle-button .toggle-circle"
+		);
 		this.createPerspectiveCamera();
 		this.createOrthographicCamera();
 		this.setOrbitControls();
+		this.setEventListeners();
 	}
 	//
 	createPerspectiveCamera() {
@@ -33,9 +46,8 @@ export default class Camera {
 			0.1,
 			1000
 		);
-		this.perspectiveCamera.position.x = 29;
-		this.perspectiveCamera.position.y = 14;
-		this.perspectiveCamera.position.z = 12;
+		this.perspectiveCamera.position.y = 5.65;
+		this.perspectiveCamera.position.z = 10;
 		this.scene.add(this.perspectiveCamera);
 	}
 
@@ -56,9 +68,6 @@ export default class Camera {
 		this.orthographicCamera.rotation.x = -Math.PI / 6;
 		this.scene.add(this.orthographicCamera);
 
-		// this.helper = new THREE.CameraHelper(this.orthographicCamera);
-		// this.scene.add(this.helper);
-
 		// const gridHelper = new THREE.GridHelper(20, 20);
 		// this.scene.add(gridHelper);
 
@@ -70,6 +79,23 @@ export default class Camera {
 		this.controls = new OrbitControls(this.perspectiveCamera, this.canvas);
 		this.controls.enableDamping = true;
 		this.controls.enableZoom = true;
+		this.controls.maxDistance = 15;
+		this.controls.maxPolarAngle = 1.5;
+		const helper = new THREE.CameraHelper(this.orthographicCamera);
+		this.scene.add(helper);
+	}
+
+	setEventListeners() {
+		this.toggleButton.addEventListener("click", () => {
+			this.camera =
+				this.camera === "perspective" ? "orthographic" : "perspective";
+			this.toggleCircle.classList.toggle("slide");
+
+			//  let bodyEl = document.body
+			//  bodyEl.className = this.camera
+			//pass this.theme to the callback
+			this.emit("switch-camera", this.camera);
+		});
 	}
 
 	resize() {

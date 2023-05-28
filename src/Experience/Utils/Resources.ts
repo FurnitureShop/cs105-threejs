@@ -23,7 +23,6 @@ export default class Resources extends EventEmitter {
         this.renderer = this.experience.renderer;
 
         this.assets = assets
-        // console.log(this.assets)
         this.items = {}
         this.queue = this.assets.length
         this.loaded = 0
@@ -74,10 +73,8 @@ export default class Resources extends EventEmitter {
     singleAssetLoaded(asset: any, file: any) {
         this.items[asset.name] = file
         this.loaded++;
-        // console.log(file)
         //Start when all are loaded
         if (this.loaded === this.queue) {
-            // console.log("all loaded")
             this.emit("ready")
         }
     }

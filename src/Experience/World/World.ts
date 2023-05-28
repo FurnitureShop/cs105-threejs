@@ -7,6 +7,9 @@ import Controls from "./Controls";
 import Floor from "./Floor";
 import EventEmitter from "events";
 import RoomOverview from "../Room/RoomOverview";
+import Cube from "./Cube";
+import RoomBedroom1 from "../Room/RoomBedroom1";
+import { ROOM_DATA } from "../../constant/roomTitle";
 
 export default class World extends EventEmitter {
 	experience: Experience;
@@ -19,11 +22,12 @@ export default class World extends EventEmitter {
 	environment!: Environment;
 	controls!: Controls;
 	floor!: Floor;
-	currentScene: any;
+	cube!: Cube;
+	currentRoomIndex!: number;
+	currentRoom: any;
 
 	constructor() {
 		super();
-
 		this.experience = new Experience();
 		this.sizes = this.experience.sizes;
 		this.scene = this.experience.scene;
@@ -34,24 +38,40 @@ export default class World extends EventEmitter {
 		this.resources.on("ready", () => {
 			this.environment = new Environment();
 			this.floor = new Floor();
-			this.room = new Room(assets[0].name);
-         // Disable scroll when in homepage
+			this.cube = new Cube();
+			// Disable scroll when in homepage
 			if (document.querySelector("body")) {
 				(document.querySelector("body") as HTMLElement).style.overflow =
 					"hidden";
 			}
-			// this.controls = new Controls();
 			this.emit("worldready");
-			// console.log("room created")
 		});
 
 		this.on("changehomepage", () => {
-			this.currentScene = new RoomOverview();
+			this.currentRoomIndex = 0;
+			this.currentRoom = new RoomOverview();
 		});
 
 		this.on("showroom", (roomIndex: number) => {
-			this.room = new Room(assets[2].name);
-		})
+			if (this.controls) {
+				this.controls.clearSmoothScroll();
+			}
+			this.currentRoomIndex = roomIndex;
+			if (document.querySelector(".section-description") != null) {
+				document.querySelector(".section-description")!.innerHTML =
+					ROOM_DATA[this.currentRoomIndex].description;
+			}
+			switch (this.currentRoomIndex) {
+				case 1:
+					this.currentRoom = new RoomBedroom1();
+					break;
+				default:
+					this.currentRoom = new RoomBedroom1();
+			}
+			this.room = new Room(assets[this.currentRoomIndex + 1].name);
+			this.controls = new Controls();
+			this.currentRoom.emit("done-loading-room");
+		});
 	}
 
 	resize() {}

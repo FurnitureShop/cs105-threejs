@@ -35,6 +35,7 @@ export default class Controls {
       GSAP.registerPlugin(ScrollTrigger)
       this.setSmoothScroll()
       this.setScrollTriggerRoom01();
+      // this.clearSmoothScroll();
    }
 
    setupAsscroll() {
@@ -91,8 +92,7 @@ export default class Controls {
       ScrollTrigger.matchMedia({
          //desktop
          "(min-width: 969px)": () => {
-            console.log("desktop")
-            this.room.scale.set(0.15, 0.15, 0.15)
+            this.room.scale.set(0.11, 0.11, 0.11)
             if (this.rectLight) {
                this.rectLight.intensity = 3;
             }
@@ -143,7 +143,6 @@ export default class Controls {
          },
          //mobile
          "(max-width: 968px)": () => {
-            console.log("mobile")
             this.room.scale.set(0.1, 0.1, 0.1)
             if (this.rectLight) {
                this.rectLight.intensity = 1.5;
@@ -300,6 +299,12 @@ export default class Controls {
          }
 
       })
+   }
+
+   clearSmoothScroll() {
+      GSAP.ticker.remove(this.asscroll.update);
+      this.asscroll.off("update", ScrollTrigger.update);
+      ScrollTrigger.removeEventListener("refresh", this.asscroll.resize);
    }
 
    update() {

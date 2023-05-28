@@ -31,6 +31,7 @@ export default class Experience {
       Experience.instance = this;
       this.canvas = canvas;
       this.scene = new THREE.Scene();
+      this.scene.background = new THREE.Color(0xf6f6f6)
       this.time = new Time();
       this.sizes = new Sizes();
       this.camera = new Camera();
@@ -51,11 +52,21 @@ export default class Experience {
       this.theme.on("switch-theme", (theme) => {
          this.switchTheme(theme)
       })
+
+      this.camera.on("switch-camera", (camera) => {
+         this.switchCamera(camera);
+      })
    }
 
    switchTheme(theme: string) {
       if (this.world.environment) {
          this.world.environment.switchTheme(theme)
+      }
+   }
+
+   switchCamera(camera: string) {
+      if (this.world.environment) {
+         this.renderer.switchCamera(camera)
       }
    }
 

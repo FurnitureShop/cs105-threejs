@@ -3,20 +3,15 @@ import * as THREE from "three";
 import GSAP from "gsap";
 import Experience from "./Experience";
 import convertDivToSpan from "./Utils/convertDivToSpan";
-import Camera from "./Camera";
 import Sizes from "./Utils/Sizes";
 import World from "./World/World";
-import Resources from "./Utils/Resources";
 
 export default class Preloader extends EventEmitter {
 	private experience;
-	private scene: THREE.Scene;
-	private camera: Camera;
-	private resources: Resources;
 	private sizes: Sizes;
 	private world: World;
-	private room?: THREE.Group;
-	private roomChildren?: { [key in string]: THREE.Object3D<THREE.Event> };
+	private cubeScene?: THREE.Group;
+	private cubeRoom?: THREE.Object3D<THREE.Event>;
 	// Store queue animation and excute by time line
 	private timeline?: gsap.core.Timeline;
 	private device: string;
@@ -25,9 +20,6 @@ export default class Preloader extends EventEmitter {
 	constructor() {
 		super();
 		this.experience = new Experience();
-		this.scene = this.experience.scene;
-		this.camera = this.experience.camera;
-		this.resources = this.experience.resources;
 		this.sizes = this.experience.sizes;
 		this.world = this.experience.world;
 		this.device = this.sizes.device;
@@ -45,21 +37,20 @@ export default class Preloader extends EventEmitter {
 	setAssets() {
 		convertDivToSpan(document.querySelector(".intro-text"));
 		convertDivToSpan(document.querySelector(".room-title"));
-		convertDivToSpan(document.querySelector(".hero-main"));
-		convertDivToSpan(document.querySelector(".hero-second"));
+		convertDivToSpan(document.querySelector(".hero-main-title"));
+		convertDivToSpan(document.querySelector(".hero-main-description"));
+		convertDivToSpan(document.querySelector(".first-sub"));
+		convertDivToSpan(document.querySelector(".second-sub"));
 
-		this.room = this.world.room?.actualRoom;
-		this.roomChildren = this.world.room?.roomChildren;
+		this.cubeScene = this.world.cube.cubeScene;
+		this.cubeRoom = this.world.cube.cubeRoom;
 	}
 
 	async playIntro() {
+		window.scroll(0, 0)
 		await this.firstIntro();
-		if (this.roomChildren) {
-			this.roomChildren.cube.rotation.y = Math.PI / 4;
-			window.removeEventListener(
-				"mousemove",
-				this.experience.world.room.mouseMoveEvent
-			);
+		if (this.cubeRoom) {
+			this.cubeRoom.rotation.y = Math.PI / 4;
 		}
 
 		this.world.emit("changehomepage");
@@ -67,8 +58,7 @@ export default class Preloader extends EventEmitter {
 
 	firstIntro() {
 		return new Promise((resolve) => {
-			if (!this.roomChildren || !this.room) return;
-			console.log(this.roomChildren);
+			if (!this.cubeRoom || !this.cubeScene) return;
 			this.timeline = GSAP.timeline();
 			this.timeline.to(".preloader", {
 				opacity: 0,
@@ -80,7 +70,7 @@ export default class Preloader extends EventEmitter {
 			if (this.device === "desktop") {
 				this.timeline
 					.to(
-						this.roomChildren?.cube.scale,
+						this.cubeRoom.scale,
 						{
 							x: 1.4,
 							y: 1.4,
@@ -91,7 +81,7 @@ export default class Preloader extends EventEmitter {
 						"init"
 					)
 					.to(
-						this.roomChildren.cube.position,
+						this.cubeRoom.position,
 						{
 							x: 0.638711,
 							y: -1.15,
@@ -99,21 +89,21 @@ export default class Preloader extends EventEmitter {
 						},
 						"init"
 					)
-					.to(this.room.position, {
+					.to(this.cubeScene.position, {
 						x: -1,
 						ease: "power1.out",
 						duration: 0.7,
 					});
 			} else {
 				this.timeline
-					.to(this.roomChildren?.cube.scale, {
+					.to(this.cubeRoom.scale, {
 						x: 1.4,
 						y: 1.4,
 						z: 1.4,
 						ease: "back.out(2.5)",
 						duration: 0.7,
 					})
-					.to(this.room.position, {
+					.to(this.cubeScene.position, {
 						z: -1,
 						ease: "power1.out",
 						duration: 0.7,
@@ -135,7 +125,7 @@ export default class Preloader extends EventEmitter {
 					"+=1"
 				)
 				.to(
-					this.room.position,
+					this.cubeScene.position,
 					{
 						x: 0,
 						y: 0,
@@ -146,10 +136,9 @@ export default class Preloader extends EventEmitter {
 						},
 					},
 					"same"
-				);
-			this.timeline
+				)
 				.to(
-					this.roomChildren.cube.scale,
+					this.cubeRoom.scale,
 					{
 						x: 5,
 						y: 5,
@@ -158,7 +147,7 @@ export default class Preloader extends EventEmitter {
 					"same"
 				)
 				.to(
-					this.roomChildren.cube.position,
+					this.cubeRoom.position,
 					{
 						x: 0.638711,
 						y: 2.5,
@@ -172,5 +161,9 @@ export default class Preloader extends EventEmitter {
 
 	resize() {}
 
-	update() {}
+	update() {
+		// if (this.moveFlag) {
+		// 		this.move();
+		// }
+	}
 }
