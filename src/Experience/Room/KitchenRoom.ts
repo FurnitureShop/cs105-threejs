@@ -3,7 +3,7 @@ import * as THREE from "three";
 import GSAP from "gsap";
 import Experience from "../Experience";
 
-export default class SleepingRoom extends EventEmitter {
+export default class KitchenRoom extends EventEmitter {
 	private experience;
 	private timeline: gsap.core.Timeline;
 	roomChildren!: { [key in string]: THREE.Object3D<THREE.Event> };
@@ -18,8 +18,21 @@ export default class SleepingRoom extends EventEmitter {
 		this.cube = this.experience.world.cube.cubeRoom;
 		this.on("done-loading-room", () => {
 			this.roomChildren = this.experience.world.room.roomChildren;
+			// Kitchen room is special case so need special init.
+			this.loadingRoom();
 			this.playLoadingRoom();
 			this.attachBackEvent();
+		});
+	}
+
+	loadingRoom() {
+		this.roomChildren.room.children.forEach((child) => {
+			if (child.name !== "floor" && child.name !== "tiles") {
+				child.castShadow = true;
+				child.receiveShadow = true;
+				child.scale.set(0, 0, 0);
+				this.roomChildren[child.name.toLowerCase()] = child;
+			}
 		});
 	}
 
@@ -32,9 +45,6 @@ export default class SleepingRoom extends EventEmitter {
 		document
 			.querySelector(".toggle-bar-camera")
 			?.classList.toggle("hidden", false);
-		console.log(this.roomChildren);
-		const axesHelper = new THREE.AxesHelper(5);
-		this.experience.scene.add(axesHelper);
 		this.timeline
 			.set(this.experience.world.room.actualRoom.scale, {
 				x: 0.25,
@@ -42,9 +52,9 @@ export default class SleepingRoom extends EventEmitter {
 				z: 0.25,
 			})
 			.set(this.roomChildren.room.scale, {
-				x: 4,
-				y: 4,
-				z: 4,
+				x: 4.15903,
+				y: 4.08559,
+				z: 3.88764,
 			})
 			.to(this.cube.scale, {
 				x: 0,
@@ -91,78 +101,111 @@ export default class SleepingRoom extends EventEmitter {
 				},
 				"introtext"
 			)
-      .to(
-				this.roomChildren.frame.scale,
+			.to(
+				this.roomChildren.cabinet_base.scale,
 				{
-					x: 1,
-					y: 1,
-					z: 1,
+					x: 0.6844120025634766,
+					y: 0.05777336657047272,
+					z: 0.23209086060523987,
 					ease: "back.out(2.2)",
 					duration: 0.5,
 				},
 				">-0.5"
 			)
 			.to(
-				this.roomChildren.hexagon.scale,
+				this.roomChildren.cabinet.scale,
 				{
-					x: 1,
-					y: 1,
-					z: 1,
-					ease: "back.out(2.2)",
-					duration: 0.5,
-				},
-				">-0.5"
-			)
-			.to(
-				this.roomChildren.blanket.scale,
-				{
-					x: 0.912741,
-					y: 0.912741,
-					z: 0.912741,
-					ease: "back.out(2.2)",
-					duration: 0.5,
-				},
-				">-0.4"
-			)
-			.to(
-				this.roomChildren.lamp_base.scale,
-				{
-					x: 0.278656,
-					y: 0.278656,
-					z: 0.278656,
+					x: 0.1963675618171692,
+					y: 0.23885568976402283,
+					z: 0.2601439356803894,
 					ease: "back.out(2.2)",
 					duration: 0.5,
 				},
 				">-0.3"
 			)
 			.to(
-				this.roomChildren.matress.scale,
+				this.roomChildren.refrigerator.scale,
 				{
-					x: 0.912741,
-					y: 0.912741,
-					z: 0.912741,
+					x: 0.23139269649982452,
+					y: 0.8231937885284424,
+					z: 0.2040671408176422,
+					ease: "back.out(2.2)",
+					duration: 0.5,
+				},
+				">-0.5"
+			)
+			.to(
+				this.roomChildren.sink.scale,
+				{
+					x: 0.4938393831253052,
+					y: 0.5283124446868896,
+					z: 0.502716600894928,
+					ease: "back.out(2.2)",
+					duration: 0.5,
+				},
+				">-0.5"
+			)
+			.to(
+				this.roomChildren.shower_wash.scale,
+				{
+					x: 0.14510686695575714,
+					y: 0.13563841581344604,
+					z: 0.13807669281959534,
+					ease: "back.out(2.2)",
+					duration: 0.5,
+				},
+				">-0.5"
+			)
+			.to(
+				this.roomChildren.cabinet_top.scale,
+				{
+					x: 0.17482686042785645,
+					y: 0.29522740840911865,
+					z: 0.16983194649219513,
 					ease: "back.out(2.2)",
 					duration: 0.5,
 				},
 				">-0.2"
 			)
 			.to(
-				this.roomChildren.nightstand_table.scale,
+				this.roomChildren.chimney_hood.scale,
 				{
-					x: 0.852012,
-					y: 0.852012,
-					z: 0.852012,
+					x: 0.4938393831253052,
+					y: 0.5283124446868896,
+					z: 0.502716600894928,
+					ease: "back.out(2.2)",
+					duration: 0.5,
+				},
+				">-0.5"
+			)
+			.to(
+				this.roomChildren.furniture.scale,
+				{
+					x: 0.49987325072288513,
+					y: 0.5283124446868896,
+					z: 0.4967174232006073,
 					ease: "back.out(2.2)",
 					duration: 0.5,
 				},
 				">-0.1"
 			)
 			.to(
-				this.roomChildren.wardrobe.scale,
+				this.roomChildren.top_furniture.scale,
 				{
-					x: 1,
-					y: 1,
-					z: 1,
+					x: 0.06139949709177017,
+					y: 0.04393605887889862,
+					z: 0.07384390383958817,
+					ease: "back.out(2.2)",
+					duration: 0.5,
+				},
+				">-0.5"
+			)
+			.to(
+				this.roomChildren.lamp.scale,
+				{
+					x: 0.05832960456609726,
+					y: 0.08041601628065109,
+					z: 0.05937815085053444,
 					ease: "back.out(2.2)",
 					duration: 0.5,
 				},

@@ -4,8 +4,6 @@ import GSAP from "gsap";
 import Experience from "../Experience";
 import Wall from "../World/Wall";
 import { ROOM_DATA } from "../../constant/roomTitle";
-import { resolve } from "path";
-import convertDivToSpan from "../Utils/convertDivToSpan";
 
 export default class RoomOverview extends EventEmitter {
 	private experience;

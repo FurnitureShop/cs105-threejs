@@ -329,7 +329,7 @@ div.experience {
    height: 100vh;
    position: fixed;
    opacity: 1;
-   /* z-index: 99999999999999999; */
+   z-index: 99999999999999999;
 }
 
 .preloader-wrapper {

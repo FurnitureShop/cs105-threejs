@@ -11,6 +11,7 @@ import Cube from "./Cube";
 import BokoRoom from "../Room/BokoRoom";
 import { ROOM_DATA } from "../../constant/roomTitle";
 import SleepingRoom from "../Room/SleepingRoom";
+import KitchenRoom from "../Room/KitchenRoom";
 
 export default class World extends EventEmitter {
 	experience: Experience;
@@ -69,6 +70,9 @@ export default class World extends EventEmitter {
 					break;
 				case 2:
 					this.currentRoom = new BokoRoom();
+					break;
+				case 3:
+					this.currentRoom = new KitchenRoom();
 					break;
 				default:
 					this.currentRoom = new BokoRoom();

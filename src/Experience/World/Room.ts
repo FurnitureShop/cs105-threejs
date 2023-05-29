@@ -76,6 +76,7 @@ export default class Room {
 
 				this.setupAreaLight(child);
 			}
+
 			child.scale.set(0, 0, 0);
 
 			this.roomChildren[child.name.toLowerCase()] = child;
@@ -138,6 +139,6 @@ export default class Room {
 
 	clearRoom() {
 		this.scene.remove(this.actualRoom)
-		this.roomChildren.aquarium.remove(this.roomChildren.rectLight)
+		this.roomChildren.aquarium?.remove(this.roomChildren.rectLight)
 	}
 }
