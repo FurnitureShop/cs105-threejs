@@ -60,6 +60,8 @@ export default class Room {
 				});
 			}
 
+			this.addChildrenShadow(child)
+
 			//only specific for room_01
 			// if (child.name === "Aquarium") {
 			// 	const aquarium = child.children[0] as THREE.Mesh;
@@ -118,5 +120,17 @@ export default class Room {
 	clearRoom() {
 		this.scene.remove(this.actualRoom)
 		// this.roomChildren.aquarium.remove(this.roomChildren.rectLight)
+	}
+
+	addChildrenShadow(child: THREE.Object3D<THREE.Event>) {
+		return child?.children.forEach((childOfChild) => {
+			if(childOfChild.children.length > 0) {
+				this.addChildrenShadow(childOfChild);
+			}
+			childOfChild.receiveShadow = true;
+			childOfChild.castShadow = true;
+			return;
+		})
+
 	}
 }

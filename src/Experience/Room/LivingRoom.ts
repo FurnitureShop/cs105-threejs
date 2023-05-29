@@ -16,7 +16,6 @@ export default class LivingRoom extends EventEmitter {
       // this.setAssets();
       this.cube = this.experience.world.cube.cubeRoom;
       this.on("done-loading-room", () => {
-         console.log(this.experience.world.room)
          this.roomChildren = this.experience.world.room.roomChildren;
          this.playLoadingRoom();
          this.attachBackEvent();
@@ -32,7 +31,6 @@ export default class LivingRoom extends EventEmitter {
       document
          .querySelector(".toggle-bar-camera")
          ?.classList.toggle("hidden", false);
-      console.log(this.roomChildren);
       this.timeline
          .set(this.experience.world.room.actualRoom.scale, {
             x: 0.25,
