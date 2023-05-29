@@ -22,7 +22,7 @@ export default class SleepingRoom extends EventEmitter {
 			this.roomChildren = this.experience.world.room.roomChildren;
 			const intensity = 5;
 			this.spotLightLeft = new THREE.SpotLight(
-				"red",
+				0xffffff,
 				intensity,
 				1,
 				Math.PI / 2,
@@ -31,7 +31,7 @@ export default class SleepingRoom extends EventEmitter {
 			this.spotLightLeft.position.set(0, 2, 0);
 			this.spotLightLeft.target.position.set(-0.8, 0, 0.2);
 			this.spotLightRight = new THREE.SpotLight(
-				"red",
+				0xffffff,
 				intensity,
 				1,
 				Math.PI / 2,

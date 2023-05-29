@@ -9,6 +9,8 @@ export default class KitchenRoom extends EventEmitter {
 	roomChildren!: { [key in string]: THREE.Object3D<THREE.Event> };
 	cube: THREE.Object3D<THREE.Event>;
 	backEvent!: () => void;
+	spotLightLeft!: THREE.SpotLight;
+	spotLightRight!: THREE.SpotLight;
 
 	constructor() {
 		super();
@@ -18,8 +20,32 @@ export default class KitchenRoom extends EventEmitter {
 		this.cube = this.experience.world.cube.cubeRoom;
 		this.on("done-loading-room", () => {
 			this.roomChildren = this.experience.world.room.roomChildren;
-			// Kitchen room is special case so need special init.
 			this.loadingRoom();
+			const intensity = 3;
+			this.spotLightLeft = new THREE.SpotLight(
+				0xffffff,
+				1,
+				10,
+				Math.PI / 3,
+				1,
+			);
+			this.spotLightLeft.position.set(-2.5, -2, 1);
+			this.spotLightLeft.target.position.set(0, 0, 0);
+			this.spotLightRight = new THREE.SpotLight(
+				0xffffff,
+				intensity,
+				1,
+				Math.PI / 2,
+				1
+			);
+			this.spotLightRight.position.set(-0.2, 2, -19);
+			this.spotLightRight.target.position.set(0, 0, -0.5);
+			this.switchTheme();
+			this.spotLightLeft.target.updateMatrixWorld();
+			this.spotLightRight.target.updateMatrixWorld();
+			this.roomChildren.lamp.add(this.spotLightLeft);
+			this.roomChildren.lamp.add(this.spotLightRight);
+			// Kitchen room is special case so need special init.
 			this.playLoadingRoom();
 			this.attachBackEvent();
 		});
@@ -302,7 +328,20 @@ export default class KitchenRoom extends EventEmitter {
 					document.querySelector(".btn-back")?.classList.toggle("hidden", true);
 					document.querySelector("body")!.style.overflow = "hidden";
 					this.experience.world.emit("changehomepage");
+					this.spotLightLeft.dispose();
+					this.spotLightRight.dispose();
 				},
 			});
+	}
+
+	switchTheme() {
+		const theme = this.experience.theme.theme;
+		if (theme === "dark") {
+			this.spotLightLeft.power = 15.707963267948966;
+			this.spotLightRight.power = 15.707963267948966;
+		} else {
+			this.spotLightLeft.power = 0;
+			this.spotLightRight.power = 0;
+		}
 	}
 }

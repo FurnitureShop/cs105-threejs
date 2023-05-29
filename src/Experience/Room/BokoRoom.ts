@@ -44,9 +44,9 @@ export default class BokoRoom extends EventEmitter {
       //set light for the aquarium
       const width = 1;
       const height = 1;
-      const intensity = 3;
+      const intensity = 5;
       const rectLight = new THREE.RectAreaLight(
-         'red',
+         0x772bbe,
          intensity,
          width,
          height
