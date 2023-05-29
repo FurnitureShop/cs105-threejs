@@ -42,16 +42,16 @@ export default class BokoRoom extends EventEmitter {
 
    setupAreaLight(object: THREE.Object3D) {
       //set light for the aquarium
-      const width = 1;
-      const height = 1;
-      const intensity = 3;
+      const width = 0.9;
+      const height = 0.9;
+      const intensity = 4;
       const rectLight = new THREE.RectAreaLight(
-         'red',
+         "red",
          intensity,
          width,
          height
       );
-      rectLight.position.set(1, 5, -1);
+      rectLight.position.set(1, 5.4, -2.3);
       rectLight.rotation.x = -Math.PI / 2;
       rectLight.rotation.z = Math.PI / 4;
 

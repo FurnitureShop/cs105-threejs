@@ -8,8 +8,8 @@ export type RoomTitleType = {
 export const ROOM_DATA: RoomTitleType[] = [
    {
       title: "Bedroom",
-      color: "red",
-      bannerColor: "#bf4040",
+      color: "#00233d",
+      bannerColor: "#2e6784",
       description: `
     <div class="first-section-margin section-margin"></div>
 
@@ -91,8 +91,8 @@ export const ROOM_DATA: RoomTitleType[] = [
    },
    {
       title: "Personal room",
-      color: "green",
-      bannerColor: "#5e9978",
+      color: "#e5ceaa",
+      bannerColor: "#e5a1aa",
       description: `
       <div class="first-section-margin section-margin"></div>
 
@@ -172,8 +172,8 @@ export const ROOM_DATA: RoomTitleType[] = [
    },
    {
       title: "Kitchen",
-      color: "blue",
-      bannerColor: "#4040bf",
+      color: "#070707",
+      bannerColor: "#a29685",
       description: `
       <div class="first-section-margin section-margin"></div>
 
@@ -255,8 +255,8 @@ export const ROOM_DATA: RoomTitleType[] = [
    },
    {
       title: "Living room",
-      color: "yellow",
-      bannerColor: "#bf9240",
+      color: "#6b4a2e",
+      bannerColor: "#d2b8b4",
       description: `
       <div class="first-section-margin section-margin"></div>
 

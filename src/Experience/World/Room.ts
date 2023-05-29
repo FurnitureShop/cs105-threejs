@@ -3,7 +3,6 @@ import Experience from "../Experience";
 import GSAP from "gsap";
 import { GLTF } from "three/examples/jsm/loaders/GLTFLoader.js";
 import Resources from "../Utils/Resources";
-import { RectAreaLightHelper } from "three/examples/jsm/helpers/RectAreaLightHelper.js";
 
 type LerpType = {
 	current: number;
