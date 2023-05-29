@@ -26,7 +26,8 @@ export default class RoomOverview extends EventEmitter {
 		this.timeline = GSAP.timeline();
 		this.cube = this.experience.world.cube.cubeRoom;
 		this.isMoving = false;
-		this.currentRoomIndex = currentRoomIndex;
+		// Need minus because negative room index is start from left to right, otherwise it start from right to left.
+		this.currentRoomIndex = -currentRoomIndex;
 		this.holdStartX = 0;
 		this.setAssets();
 	}

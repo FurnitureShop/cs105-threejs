@@ -9,16 +9,42 @@ export default class SleepingRoom extends EventEmitter {
 	roomChildren!: { [key in string]: THREE.Object3D<THREE.Event> };
 	cube: THREE.Object3D<THREE.Event>;
 	backEvent!: () => void;
+	spotLightLeft!: THREE.SpotLight;
+	spotLightRight!: THREE.SpotLight;
 
 	constructor() {
 		super();
 		this.experience = new Experience();
 		this.timeline = GSAP.timeline();
 		// this.setAssets();
-      this.cube = this.experience.world.cube.cubeRoom;
+		this.cube = this.experience.world.cube.cubeRoom;
 		this.on("done-loading-room", () => {
-         // console.log(this.experience.world.room)
 			this.roomChildren = this.experience.world.room.roomChildren;
+			const intensity = 5;
+			this.spotLightLeft = new THREE.SpotLight(
+				"red",
+				intensity,
+				1,
+				Math.PI / 2,
+				1
+			);
+			this.spotLightLeft.position.set(0, 2, 0);
+			this.spotLightLeft.target.position.set(-0.8, 0, 0.2);
+			this.spotLightRight = new THREE.SpotLight(
+				"red",
+				intensity,
+				1,
+				Math.PI / 2,
+				1
+			);
+			this.spotLightRight.position.set(-0.2, 2, -19);
+			this.spotLightRight.target.position.set(0, 0, -0.5);
+			this.switchTheme();
+			this.spotLightLeft.target.updateMatrixWorld();
+			this.spotLightRight.target.updateMatrixWorld();
+			this.roomChildren.lamp_base.add(this.spotLightLeft);
+			this.roomChildren.lamp_base.add(this.spotLightRight);
+
 			this.playLoadingRoom();
 			this.attachBackEvent();
 		});
@@ -33,9 +59,6 @@ export default class SleepingRoom extends EventEmitter {
 		document
 			.querySelector(".toggle-bar-camera")
 			?.classList.toggle("hidden", false);
-		console.log(this.experience.world.room);
-		// const axesHelper = new THREE.AxesHelper(5);
-		// this.experience.scene.add(axesHelper);
 		this.timeline
 			.set(this.experience.world.room.actualRoom.scale, {
 				x: 0.25,
@@ -92,7 +115,7 @@ export default class SleepingRoom extends EventEmitter {
 				},
 				"introtext"
 			)
-      .to(
+			.to(
 				this.roomChildren.frame.scale,
 				{
 					x: 1,
@@ -259,7 +282,20 @@ export default class SleepingRoom extends EventEmitter {
 					document.querySelector(".btn-back")?.classList.toggle("hidden", true);
 					document.querySelector("body")!.style.overflow = "hidden";
 					this.experience.world.emit("changehomepage");
+					this.spotLightLeft.dispose();
+					this.spotLightRight.dispose();
 				},
 			});
+	}
+
+	switchTheme() {
+		const theme = this.experience.theme.theme;
+		if (theme === "dark") {
+			this.spotLightLeft.power = 15.707963267948966;
+			this.spotLightRight.power = 15.707963267948966;
+		} else {
+			this.spotLightLeft.power = 0;
+			this.spotLightRight.power = 0;
+		}
 	}
 }

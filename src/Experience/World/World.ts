@@ -51,8 +51,7 @@ export default class World extends EventEmitter {
 		});
 
 		this.on("changehomepage", () => {
-			this.currentRoomIndex = 0;
-			this.currentRoom = new RoomOverview();
+			this.currentRoom = new RoomOverview(this.currentRoomIndex);
 		});
 
 		this.on("showroom", (roomIndex: number) => {

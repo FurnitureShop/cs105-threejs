@@ -61,6 +61,7 @@ export default class Experience {
    switchTheme(theme: string) {
       if (this.world.environment) {
          this.world.environment.switchTheme(theme)
+         this.world.currentRoom?.switchTheme?.();
       }
    }
 
