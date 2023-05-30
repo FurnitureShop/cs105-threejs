@@ -1,33 +1,86 @@
 // import * as THREE from "three"
 import * as THREE from "three"
+import Sizes from "./Utils/Sizes";
+import Camera from "./Camera";
+import Renderer from "./Renderer";
+import Time from "./Utils/Time";
+import World from "./World/World";
+import Resources from "./Utils/Resources";
+import assets from "./Utils/assets";
+import Theme from "./Utils/Theme";
+import Preloader from "./Preloader";
 
 export default class Experience {
-    canvas: any;
-    constructor(canvas: any) {
-        this.canvas = canvas;
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+   static instance: any;
+   canvas: any;
+   sizes!: Sizes;
+   scene!: THREE.Scene;
+   camera!: Camera;
+   renderer!: Renderer;
+   time!: Time;
+   world!: World;
+   resources!: Resources;
+   theme!: Theme;
+   preloader!: Preloader;
 
-        const renderer = new THREE.WebGLRenderer();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.body.appendChild(renderer.domElement);
+   constructor(canvas?: any) {
+      if (Experience.instance) {
+         return Experience.instance
+      }
 
-        const geometry = new THREE.BoxGeometry(1, 1, 1);
-        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-        const cube = new THREE.Mesh(geometry, material);
-        scene.add(cube);
+      Experience.instance = this;
+      this.canvas = canvas;
+      this.scene = new THREE.Scene();
+      this.scene.background = new THREE.Color(0xf6f6f6)
+      this.time = new Time();
+      this.sizes = new Sizes();
+      this.camera = new Camera();
+      this.renderer = new Renderer();
+      this.resources = new Resources(assets)
+      this.theme = new Theme();
+      this.world = new World();
+      this.preloader = new Preloader();
 
-        camera.position.z = 5;
+      //listen on "resize" event from EventEmitter
+      this.sizes.on("resize", () => {
+         this.resize()
+      })
+      //listen on "update" event from EventEmitter
+      this.time.on("update", () => {
+         this.update()
+      })
+      this.theme.on("switch-theme", (theme) => {
+         this.switchTheme(theme)
+      })
 
-        function animate() {
-            requestAnimationFrame(animate);
+      this.camera.on("switch-camera", (camera) => {
+         this.switchCamera(camera);
+      })
+   }
 
-            cube.rotation.x += 0.01;
-            cube.rotation.y += 0.01;
+   switchTheme(theme: string) {
+      if (this.world.environment) {
+         this.world.environment.switchTheme(theme)
+         this.world.currentRoom?.switchTheme?.();
+      }
+   }
 
-            renderer.render(scene, camera);
-        }
+   switchCamera(camera: string) {
+      if (this.world.environment) {
+         this.renderer.switchCamera(camera)
+      }
+   }
 
-        animate();
-    }
+   resize() {
+      this.camera.resize();
+      this.renderer.resize()
+      this.world.resize()
+   }
+
+   update() {
+      this.preloader.update();
+      this.camera.update();
+      this.renderer.update();
+      this.world.update()
+   }
 }
