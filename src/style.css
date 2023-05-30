@@ -483,3 +483,9 @@ div.experience {
    border-radius: 50%;
    opacity: 0;
 }
+
+@media screen and (max-width: 900px) {
+   .room-choice-container {
+      gap: 30px;
+   }
+}
